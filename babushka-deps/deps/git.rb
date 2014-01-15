@@ -6,8 +6,14 @@
 
 
 dep 'git' do
-  requires 'gitconfig.dotfile'
+  requires 'gitconfig.dotfile',
+           'gitignore.global.dotfile'
 end
 
 # Main Git configuration file
 dep 'gitconfig.dotfile'
+
+# Global Git ignore file (for all projects)
+dep 'gitignore.global.dotfile' do
+  requires 'gitconfig.dotfile'
+end
