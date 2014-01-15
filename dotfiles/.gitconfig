@@ -1,0 +1,78 @@
+[user]
+    name  = Brad Feehan
+    email = git@bradfeehan.com
+
+[core]
+    excludesfile = /Users/brad/.gitignore.global
+    pager = less --RAW-CONTROL-CHARS --tabs=1,5
+
+[credential]
+    helper = osxkeychain
+
+[color]
+    ui = true
+
+[grep]
+    lineNumber = true
+
+[interactive]
+    singlekey = true
+
+[push]
+    # Push the current branch to its tracking branch if none given
+    default = upstream
+
+[rebase]
+    autosquash = true
+
+[merge]
+    defaultToUpstream = true
+    tool = Kaleidoscope
+
+[alias]
+    #
+    # Abbreviations
+    #
+    b     = branch
+    br    = branch
+    bra   = branch
+    bran  = branch
+    branc = branch
+
+    s     = status
+    st    = status
+    stat  = status
+    statu = status
+
+    co      = checkout
+    ci      = commit
+    checkin = commit
+
+    #
+    # Logs
+    #
+    last = log -1 --stat
+    lol  = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    l    = !git --no-pager log --graph --decorate --pretty=oneline --abbrev-commit --all -15
+
+    #
+    # Diffs
+    #
+    staged = diff --cached
+
+[difftool "Kaleidoscope"]
+    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
+[diff]
+    tool = Kaleidoscope
+
+[difftool]
+    prompt = false
+
+[mergetool "Kaleidoscope"]
+    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+    trustExitCode = true
+
+[mergetool]
+    prompt = false
