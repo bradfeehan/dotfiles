@@ -12,7 +12,7 @@ Bundle 'gmarik/vundle'
 
 " Bundles
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'myusuf3/numbers.vim'
 
@@ -21,7 +21,7 @@ Bundle 'myusuf3/numbers.vim'
 set laststatus=2
 set encoding=utf-8
 set t_Co=256
-let g:Powerline_symbols = 'fancy'
+let g:airline_powerline_fonts = 1
 set ttimeout
 set ttimeoutlen=50
 
