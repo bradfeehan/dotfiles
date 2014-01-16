@@ -47,6 +47,16 @@ path=(
   $path
 )
 
+# Add Sublime Text's "subl" command to $path
+for directory ({,$HOME}/Applications/Sublime\ Text.app/Contents/SharedSupport/bin); do
+  if [[ -d "$directory" ]]; then
+    path=(
+      $directory
+      $path
+    )
+  fi
+done
+
 #
 # Less
 #
