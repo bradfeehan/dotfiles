@@ -32,8 +32,8 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'git' \
   'archive' \
+  'git' \
   'syntax-highlighting' \
   'prompt'
 
@@ -161,4 +161,4 @@ zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 #
 
 # git status
-alias gst="gwS"
+alias gst='gwS'
