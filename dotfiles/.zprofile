@@ -45,6 +45,8 @@ typeset -gU cdpath fpath mailpath path
 path=(
   /usr/local/{bin,sbin}
   $path
+  /usr/sbin
+  /sbin
 )
 
 # Add Sublime Text's "subl" command to $path
