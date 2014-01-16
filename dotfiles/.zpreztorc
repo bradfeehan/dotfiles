@@ -34,6 +34,8 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'archive' \
   'git' \
+  'ruby' \
+  'ssh' \
   'syntax-highlighting' \
   'prompt'
 
