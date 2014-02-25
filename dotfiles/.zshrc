@@ -18,3 +18,10 @@ fi
 if /usr/bin/which -s brew && [[ -h "$(brew --prefix)/etc/profile.d/z.sh" ]]; then
   source "$(brew --prefix)/etc/profile.d/z.sh"
 fi
+
+#
+# Set up Hub alias ("git" runs "hub")
+#
+if [[ -x '/usr/local/bin/hub' ]]; then
+  eval "$(/usr/local/bin/hub alias -s)"
+fi
