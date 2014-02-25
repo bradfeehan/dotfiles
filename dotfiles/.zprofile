@@ -86,3 +86,10 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
+
+#
+# 99designs
+#
+
+# Use VirtualBox for development VM
+export VAGRANT_DEFAULT_PROVIDER='virtualbox'
