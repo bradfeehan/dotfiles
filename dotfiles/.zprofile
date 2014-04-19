@@ -60,6 +60,14 @@ for directory ({,$HOME}/Applications/Sublime\ Text.app/Contents/SharedSupport/bi
   fi
 done
 
+# Add Heroku toolbelt to $path
+if [[ -d /usr/local/heroku/bin ]]; then
+  path=(
+    /usr/local/heroku/bin
+    $path
+  )
+fi
+
 #
 # Less
 #
