@@ -25,3 +25,10 @@ fi
 if [[ -x '/usr/local/bin/hub' ]]; then
   eval "$(/usr/local/bin/hub alias -s)"
 fi
+
+# Sets up environment variables to use 99designs AWS credentials
+function aws-99designs {
+  export AWS_CREDENTIAL_FILE="$HOME/.aws-credentials-99designs"
+  export AWS_PRIVATE_KEY_NAME="bradfeehan"
+  export AWS_PRIVATE_KEY="$HOME/.ssh/bradfeehan-99designs-ec2.pem"
+}
