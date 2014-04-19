@@ -130,5 +130,8 @@ zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 
 # git status
 alias gst='gwS'
+
+# git submodule update --init
 alias gsu='gSI'
+
 alias j='z'
