@@ -84,6 +84,13 @@ zstyle ':prezto:module:git:log:oneline' format '%C(yellow)%h%C(reset) %s%C(auto)
 zstyle ':prezto:module:prompt' theme 'sorin'
 
 #
+# Ruby
+#
+
+# Auto switch the Ruby version on directory change.
+zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'
+
+#
 # SSH
 #
 
