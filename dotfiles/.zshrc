@@ -44,3 +44,6 @@ function gpu {
         git push --set-upstream origin "$current_branch"
     fi
 }
+
+# added by travis gem
+[ -f /Users/brad/.travis/travis.sh ] && source /Users/brad/.travis/travis.sh
