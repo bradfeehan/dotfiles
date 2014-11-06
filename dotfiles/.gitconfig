@@ -60,6 +60,7 @@
     # Diffs
     #
     staged = diff --cached
+    start = !git init && git commit --allow-empty -m \"Initial commit\n\nEmpty initial commit to allow rebasing later.\nSee: https://coderwall.com/p/m_pgbg\"
 
 [difftool "Kaleidoscope"]
     cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
