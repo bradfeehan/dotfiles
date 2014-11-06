@@ -103,3 +103,4 @@ fi
 
 # Use VirtualBox for development VM
 export VAGRANT_DEFAULT_PROVIDER='virtualbox'
+export DOCKER_HOST=tcp://localhost:2375
