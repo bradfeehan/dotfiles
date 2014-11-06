@@ -47,3 +47,6 @@ function gpu {
 
 # added by travis gem
 [ -f /Users/brad/.travis/travis.sh ] && source /Users/brad/.travis/travis.sh
+
+# Short alias for `bundle exec`
+alias be='bundle exec'
