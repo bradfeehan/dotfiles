@@ -32,3 +32,15 @@ function aws-99designs {
   export AWS_PRIVATE_KEY_NAME="bradfeehan"
   export AWS_PRIVATE_KEY="$HOME/.ssh/bradfeehan-99designs-ec2.pem"
 }
+
+# Shortcut for "git push --set-upstream origin CURRENT_BRANCH_NAME"
+function gpu {
+    local current_branch="$(git symbolic-ref --quiet --short HEAD)"
+
+    if [[ -z $current_branch ]]; then
+        echo "Can't determine current branch name (are you on a branch?)"
+        return 1
+    else
+        git push --set-upstream origin "$current_branch"
+    fi
+}
