@@ -1,20 +1,23 @@
 " Don't try to be backwards-compatible with vi
 set nocompatible
 
-
-" Set up Vundle
+" Required for Vundle
 filetype on
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
 
+" Add Vundle to the runtime path
+set rtp+=~/.vim/bundle/Vundle.vim
 
-" Bundles
-Bundle 'tpope/vim-fugitive'
-Bundle 'bling/vim-airline'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'myusuf3/numbers.vim'
+" Vundle plugins
+call vundle#begin()
+Plugin 'gmarik/vundle'
+
+Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-airline'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'myusuf3/numbers.vim'
+
+call vundle#end()
 
 
 " Powerline configuration
