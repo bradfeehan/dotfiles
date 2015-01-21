@@ -12,11 +12,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Source Z
+# Set up fasd
 #
-# https://github.com/rupa/z
-if /usr/bin/which -s brew && [[ -h "$(brew --prefix)/etc/profile.d/z.sh" ]]; then
-  source "$(brew --prefix)/etc/profile.d/z.sh"
+# https://github.com/clvv/fasd
+if [[ -x "/usr/local/bin/fasd" ]]; then
+  source "/usr/local/bin/fasd"
+  eval "$(fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install \
+    zsh-wcomp zsh-wcomp-install)"
 fi
 
 #
