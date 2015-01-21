@@ -60,3 +60,4 @@ alias gbC='git branch --merged master | grep -v "\* master" | xargs -n 1 git bra
 
 # Short alias for `bundle exec`
 alias be='bundle exec'
+source ~/.common_env
