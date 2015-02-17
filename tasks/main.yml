@@ -1,6 +1,6 @@
 ---
 - name: Clone dotfiles repository
-  git: "repo=git@github.com:bradfeehan/dotfiles.git dest={{ user_home }}/.dotfiles accept_hostkey=yes"
+  git: "repo=git@github.com:bradfeehan/dotfiles.git dest={{ user_home }}/.dotfiles accept_hostkey=yes update=false"
 
 - name: Link dotfiles
   file: "src={{ item }} dest={{ user_home + '/' + (item | basename) }} state=link force=true"
