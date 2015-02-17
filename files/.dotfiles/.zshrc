@@ -58,7 +58,7 @@ function gpu {
 alias gbC='git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d'
 
 # added by travis gem
-[ -f /Users/brad/.travis/travis.sh ] && source /Users/brad/.travis/travis.sh
+[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
 # Short alias for `bundle exec`
 alias be='bundle exec'

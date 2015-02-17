@@ -3,7 +3,7 @@
     email = git@bradfeehan.com
 
 [core]
-    excludesfile = /Users/brad/.gitignore.global
+    excludesfile = ~/.gitignore.global
     pager = less --RAW-CONTROL-CHARS --tabs=1,5
 
 [credential]
