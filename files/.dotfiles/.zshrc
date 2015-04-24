@@ -25,7 +25,9 @@ fi
 # Set up Hub alias ("git" runs "hub")
 #
 if [[ -x '/usr/local/bin/hub' ]]; then
-  eval "$(/usr/local/bin/hub alias -s)"
+  function git {
+    /usr/local/bin/hub "$@"
+  }
 fi
 
 # Sets up environment variables to use 99designs AWS credentials
