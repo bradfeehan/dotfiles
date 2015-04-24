@@ -12,15 +12,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Set up fasd
-#
-# https://github.com/clvv/fasd
-if [[ -x "/usr/local/bin/fasd" ]]; then
-  source "/usr/local/bin/fasd"
-  eval "$(fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install \
-    zsh-wcomp zsh-wcomp-install)"
-fi
-
 #
 # Set up Hub alias ("git" runs "hub")
 #
