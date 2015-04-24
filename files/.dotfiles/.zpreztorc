@@ -38,6 +38,7 @@ zstyle ':prezto:load' pmodule \
   'ruby' \
   'ssh' \
   'syntax-highlighting' \
+  'history-substring-search' \
   'prompt'
 
 #
