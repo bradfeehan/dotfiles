@@ -61,6 +61,16 @@ for directory ({,$HOME}/Applications/Sublime\ Text.app/Contents/SharedSupport/bi
   fi
 done
 
+# Add Karabiner's command-line interface to $path
+for directory ({,$HOME}/Applications/Karabiner.app/Contents/Library/bin); do
+  if [[ -d "$directory" ]]; then
+    path=(
+      $directory
+      $path
+    )
+  fi
+done
+
 # Add Heroku toolbelt to $path
 if [[ -d /usr/local/heroku/bin ]]; then
   path=(
