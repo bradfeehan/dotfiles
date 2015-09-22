@@ -58,6 +58,8 @@ fi
 # added by travis gem
 [ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
-# Short alias for `bundle exec`
+# General-purpose command-line aliases
 alias be='bundle exec'
+alias fig='docker-compose'
+
 source ~/.common_env
