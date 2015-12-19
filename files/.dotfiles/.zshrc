@@ -43,7 +43,7 @@ function gpu {
         echo "Can't determine current branch name (are you on a branch?)"
         return 1
     else
-        git push --set-upstream origin "$current_branch"
+        git push "$@" --set-upstream origin "$current_branch"
     fi
 }
 
