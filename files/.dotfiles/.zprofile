@@ -75,14 +75,24 @@ if which brew > /dev/null 2>&1; then
     $(brew --prefix)/{bin,sbin}
     $path
   )
+fi
+
+# Set up Go if present
+if which go > /dev/null 2>&1; then
+  if [[ -z "$GOROOT" ]]; then
+    export GOROOT="$(go env GOROOT)"
+  fi
+
+  if [[ -z "$GOPATH" ]]; then
+    export GOPATH="$HOME/Projects/go"
+  fi
 
   # Add GOROOT-based install location to $path
-  if [[ -d $(brew --prefix)/opt/go/libexec/bin ]]; then
-    path=(
-      $(brew --prefix)/opt/go/libexec/bin
-      $path
-    )
-  fi
+  path=(
+    $GOROOT/bin
+    $GOPATH/bin
+    $path
+  )
 fi
 
 # Set the list of directories that Zsh searches for programs.
