@@ -47,6 +47,9 @@ function gpu {
     fi
 }
 
+# Shortcut for "git pull-request"
+alias gpr='git pull-request'
+
 # Git Branch Clean -- deletes branches that have been merged to master
 alias gbC='git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d'
 
