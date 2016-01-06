@@ -49,6 +49,7 @@ path=(
   $path
   /usr/sbin
   /sbin
+  ./node_modules/.bin
 )
 
 # Add Sublime Text's "subl" command to $path
