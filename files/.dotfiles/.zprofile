@@ -41,16 +41,6 @@ typeset -gU cdpath fpath mailpath path
 #   $cdpath
 # )
 
-# Set the list of directories that Zsh searches for programs.
-path=(
-  $HOME/.bin
-  /usr/local/{bin,sbin}
-  $path
-  /usr/sbin
-  /sbin
-  ./node_modules/.bin
-)
-
 # Add Sublime Text's "subl" command to $path
 for directory ({,$HOME}/Applications/Sublime\ Text.app/Contents/SharedSupport/bin); do
   if [[ -d "$directory" ]]; then
@@ -79,13 +69,30 @@ if [[ -d /usr/local/heroku/bin ]]; then
   )
 fi
 
-# Add GOROOT-based install location to $path
-if [[ -d /usr/local/opt/go/libexec/bin ]]; then
+# Add Homebrew's binary directories to $path
+if which brew > /dev/null 2>&1; then
   path=(
-    /usr/local/opt/go/libexec/bin
+    $(brew --prefix)/{bin,sbin}
     $path
   )
+
+  # Add GOROOT-based install location to $path
+  if [[ -d $(brew --prefix)/opt/go/libexec/bin ]]; then
+    path=(
+      $(brew --prefix)/opt/go/libexec/bin
+      $path
+    )
+  fi
 fi
+
+# Set the list of directories that Zsh searches for programs.
+path=(
+  $HOME/.bin
+  $path
+  /usr/sbin
+  /sbin
+  ./node_modules/.bin
+)
 
 # Add Homebrew's Zsh completions to $fpath
 if [[ -d /usr/local/share/zsh/site-functions ]]; then
