@@ -80,6 +80,14 @@ if [[ -d /usr/local/heroku/bin ]]; then
   )
 fi
 
+# Add GOROOT-based install location to $path
+if [[ -d /usr/local/opt/go/libexec/bin ]]; then
+  path=(
+    /usr/local/opt/go/libexec/bin
+    $path
+  )
+fi
+
 # Add Homebrew's Zsh completions to $fpath
 if [[ -d /usr/local/share/zsh/site-functions ]]; then
   fpath=(
