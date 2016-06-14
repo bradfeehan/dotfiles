@@ -71,10 +71,25 @@ fi
 
 # Add Homebrew's binary directories to $path
 if which brew > /dev/null 2>&1; then
+  BREW_PREFIX="$(brew --prefix)"
   path=(
-    $(brew --prefix)/{bin,sbin}
+    $BREW_PREFIX/{bin,sbin}
     $path
   )
+
+  # Add Homebrew's Zsh completions to $fpath
+  if [[ -d "$BREW_PREFIX/share/zsh/site-functions" ]]; then
+    fpath=(
+      $fpath
+      "$BREW_PREFIX/share/zsh/site-functions"
+    )
+  fi
+
+  # Node version manager
+  if [[ -d "$HOME/.nvm" && -e "$BREW_PREFIX/opt/nvm/nvm.sh" ]]; then
+    export NVM_DIR="$HOME/.nvm"
+    source "$BREW_PREFIX/opt/nvm/nvm.sh"
+  fi
 fi
 
 # Set up Go if present
@@ -103,14 +118,6 @@ path=(
   /sbin
   ./node_modules/.bin
 )
-
-# Add Homebrew's Zsh completions to $fpath
-if [[ -d /usr/local/share/zsh/site-functions ]]; then
-  fpath=(
-    $fpath
-    /usr/local/share/zsh/site-functions
-  )
-fi
 
 #
 # Less
