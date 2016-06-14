@@ -96,9 +96,6 @@ zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'
 # SSH
 #
 
-# Set the SSH identities to load into the agent.
-zstyle ':prezto:module:ssh:load' identities 'brad.feehan@99designs'
-
 #
 # Syntax Highlighting
 #
