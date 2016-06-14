@@ -71,7 +71,7 @@ fi
 
 # Add Homebrew's binary directories to $path
 if which brew > /dev/null 2>&1; then
-  BREW_PREFIX="$(brew --prefix)"
+  export BREW_PREFIX="$(brew --prefix)"
   path=(
     $BREW_PREFIX/{bin,sbin}
     $path
@@ -88,7 +88,10 @@ if which brew > /dev/null 2>&1; then
   # Node version manager
   if [[ -d "$HOME/.nvm" && -e "$BREW_PREFIX/opt/nvm/nvm.sh" ]]; then
     export NVM_DIR="$HOME/.nvm"
-    source "$BREW_PREFIX/opt/nvm/nvm.sh"
+    nvm() {
+      source "$BREW_PREFIX/opt/nvm/nvm.sh"
+      nvm
+    }
   fi
 fi
 
