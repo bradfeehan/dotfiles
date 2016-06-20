@@ -17,6 +17,7 @@
 
 [interactive]
     singlekey = true
+    diffFilter = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
 
 [push]
     # Push the current branch to its tracking branch if none given
@@ -67,6 +68,7 @@
 
 [diff]
     tool = Kaleidoscope
+    compactionHeuristic = 1
 
 [difftool]
     prompt = false
@@ -83,3 +85,7 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+[pager]
+	log = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+	show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+	diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
