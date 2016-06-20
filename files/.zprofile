@@ -90,7 +90,7 @@ if which brew > /dev/null 2>&1; then
     export NVM_DIR="$HOME/.nvm"
     nvm() {
       source "$BREW_PREFIX/opt/nvm/nvm.sh"
-      nvm
+      nvm "$@"
     }
   fi
 fi
