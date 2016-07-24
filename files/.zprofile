@@ -149,3 +149,16 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
+
+#
+# Getflix DNS check
+#
+getflix_check() {
+  dscacheutil -flushcache
+  if curl --silent https://check.getflix.com.au | grep --quiet 'if (0) {'; then
+    echo "Getflix DNS test failed!"
+    return 1
+  else
+    echo "Getflix DNS test succeeded"
+  fi
+}
