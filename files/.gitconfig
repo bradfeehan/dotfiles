@@ -1,86 +1,79 @@
 [user]
-    name  = Brad Feehan
-    email = git@bradfeehan.com
+  name  = Brad Feehan
+  email = git@bradfeehan.com
 
 [core]
-    excludesfile = ~/.gitignore.global
-    pager = less --RAW-CONTROL-CHARS --tabs=1,5
+  excludesfile = ~/.gitignore.global
+  pager = less --RAW-CONTROL-CHARS --tabs=1,5
+	attributesfile = /Users/bradfeehan/.gitattributes.global
 
 [credential]
-    helper = osxkeychain
+  helper = osxkeychain
 
 [color]
-    ui = true
+  ui = true
 
 [grep]
-    lineNumber = true
+  lineNumber = true
 
 [interactive]
-    singlekey = true
-    diffFilter = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
+  singlekey = true
+  diffFilter = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
 
 [push]
-    # Push the current branch to its tracking branch if none given
-    default = upstream
+  # Push the current branch to its tracking branch if none given
+  default = upstream
 
 [rebase]
-    autosquash = true
+  autosquash = true
 
 [merge]
-    defaultToUpstream = true
-    tool = Kaleidoscope
+  defaultToUpstream = true
+	conflictstyle = diff3
+
+[merge "bundler_lockfile"]
+  name = Resolve merge conflicts in Gemfile.lock by running bundle install
+  driver = "echo Merge conflict in Gemfile.lock\\; running bundle install && bundle install --quiet"
 
 [alias]
-    #
-    # Abbreviations
-    #
-    b     = branch
-    br    = branch
-    bra   = branch
-    bran  = branch
-    branc = branch
+  #
+  # Abbreviations
+  #
+  b     = branch
+  br    = branch
+  bra   = branch
+  bran  = branch
+  branc = branch
 
-    s     = status
-    st    = status
-    stat  = status
-    statu = status
+  s     = status
+  st    = status
+  stat  = status
+  statu = status
 
-    co      = checkout
-    ci      = commit
-    checkin = commit
+  co      = checkout
+  ci      = commit
+  checkin = commit
 
-    #
-    # Logs
-    #
-    last = log -1 --stat
-    lol  = log --graph --decorate --pretty=oneline --abbrev-commit
-    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    l    = !git --no-pager log --graph --decorate --pretty=oneline --abbrev-commit --all -15
+  #
+  # Logs
+  #
+  last = log -1 --stat
+  lol  = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  l    = !git --no-pager log --graph --decorate --pretty=oneline --abbrev-commit --all -15
 
-    #
-    # Diffs
-    #
-    staged = diff --cached
-    start = !git init && git commit --allow-empty -m \"Initial commit\n\nEmpty initial commit to allow rebasing later.\nSee: https://coderwall.com/p/m_pgbg\"
-
-[difftool "Kaleidoscope"]
-    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+  #
+  # Diffs
+  #
+  staged = diff --cached
+  start = !git init && git commit --allow-empty -m \"Initial commit\n\nEmpty initial commit to allow rebasing later.\nSee: https://coderwall.com/p/m_pgbg\"
 
 [diff]
-    tool = Kaleidoscope
-    compactionHeuristic = 1
+  compactionHeuristic = 1
 
-[difftool]
-    prompt = false
-
-[mergetool "Kaleidoscope"]
-    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-    trustExitCode = true
-
-[mergetool]
-    prompt = false
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
@@ -89,3 +82,5 @@
 	log = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
 	show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
 	diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+[rerere]
+	enabled = true
