@@ -12,6 +12,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# Use Dash for viewing man pages if present
+if [[ -x '/Applications/Dash.app/Contents/MacOS/Dash' ]]; then
+  man() {
+    open "dash://man:$*"
+  }
+fi
+
 #
 # Set up Hub alias ("git" runs "hub")
 #
