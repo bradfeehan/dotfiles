@@ -55,7 +55,6 @@ fi
 [ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
 # General-purpose command-line aliases
-alias atom='code'
 alias be='bundle exec'
 alias fig='docker-compose'
 alias tf='terraform'
