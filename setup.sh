@@ -12,7 +12,7 @@ source="$ROOT/files"
 destination="$HOME"
 
 # Complete list of dotfiles
-dotfiles="$(find "$source" -type f -print0 | xargs -0 basename)"
+dotfiles="$(find "$source" -type f -print0 | xargs -0 -n1 basename)"
 
 for dotfile in $dotfiles; do
   if [[ ! -L "$destination/$dotfile" ]]; then
