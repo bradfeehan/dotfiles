@@ -9,17 +9,25 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source="$ROOT/files"
 
 # The target directory to place the dotfiles
-destination="$HOME"
+base_path="$HOME"
 
 # Complete list of dotfiles
-dotfiles="$(find "$source" -type f -print0 | xargs -0 -n1 basename)"
+dotfiles="$(find "$source" -type f | sed -e "s%${source}\/%%")"
 
 for dotfile in $dotfiles; do
-  if [[ ! -L "$destination/$dotfile" ]]; then
-    if [[ -e "$destination/$dotfile" ]]; then
-      echo "WARNING: the destination is not empty: '$destination/$dotfile'"
+  target="${source}/${dotfile}"
+  destination="${base_path}/${dotfile}"
+  directory="${destination%/*}"
+  if [[ ! -L "$destination" ]]; then  # if not a link (it should be)
+    if [[ -e "$destination" ]]; then  # if it already exists
+      echo "WARNING: the destination is not empty: '${destination}'"
     else
-      ln -sv "$source/$dotfile" "$destination/$dotfile"
+      # Ensure containing directory exists
+      if [[ ! -d "$directory" ]]; then
+        echo "NOTICE: creating directory '$directory'"
+        mkdir -p "$directory"
+      fi
+      ln -sv "$target" "$destination"
     fi
   fi
 done
