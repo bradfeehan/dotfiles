@@ -15,7 +15,6 @@ Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'myusuf3/numbers.vim'
 
 call vundle#end()
 
