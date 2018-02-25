@@ -5,6 +5,9 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# Require .profile if it exists
+[[ -e "${ZDOTDIR:-$HOME}/.profile" ]] && . "${ZDOTDIR:-$HOME}/.profile"
+
 #
 # Browser
 #
@@ -71,7 +74,13 @@ fi
 
 # Add Homebrew's binary directories to $path
 if which brew > /dev/null 2>&1; then
-  export BREW_PREFIX="$(brew --prefix)"
+  # Avoid executing $(brew) because it's slow; assume /usr/local if present
+  if [[ -d /usr/local/Cellar ]]; then
+    export BREW_PREFIX="/usr/local"
+  else
+    export BREW_PREFIX="$(brew --prefix)"
+  fi
+
   path=(
     $BREW_PREFIX/{bin,sbin}
     $path
@@ -98,7 +107,14 @@ fi
 # Set up Go if present
 if which go > /dev/null 2>&1; then
   if [[ -z "$GOROOT" ]]; then
-    export GOROOT="$(go env GOROOT)"
+    # Avoid executing $(go) because it's slow; assume the binary location
+    go_binary="$(which go)"
+    go_root="${go_binary%/bin/go}"
+    if [[ -d "${go_root}" ]]; then
+      export GOROOT="${go_root}"
+    else
+      export GOROOT="$(go env GOROOT)"
+    fi
   fi
 
   if [[ -z "$GOPATH" ]]; then
