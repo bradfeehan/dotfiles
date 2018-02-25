@@ -58,3 +58,4 @@ fi
 alias be='bundle exec'
 alias fig='docker-compose'
 alias tf='terraform'
+alias sv='supervisorctl'
