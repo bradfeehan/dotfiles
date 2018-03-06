@@ -104,6 +104,12 @@ if which brew > /dev/null 2>&1; then
   fi
 fi
 
+# Set up Java if present
+if [[ -x /usr/libexec/java_home ]] && /usr/libexec/java_home &>/dev/null; then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+  export JRUBY_OPTS="-J-Djruby.compile.mode=OFF"
+fi
+
 # Set up Go if present
 if which go > /dev/null 2>&1; then
   if [[ -z "$GOROOT" ]]; then
@@ -136,6 +142,7 @@ path=(
   /usr/sbin
   /sbin
   ./node_modules/.bin
+  $HOME/bin
 )
 
 #
