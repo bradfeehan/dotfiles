@@ -49,6 +49,9 @@ alias gbC='git branch --merged master | grep -v "\* master" | xargs -n 1 git bra
 # Git Log Graph -- shows a nice overview of history for the repository
 if [ -n "${_git_log_oneline_format}" ]; then
   alias glg='git log --first-parent --topo-order --glob=heads --graph --pretty=format:${_git_log_oneline_format}'
+  alias glga='glg --all'
+  alias glgb='git log --first-parent --topo-order --graph --pretty=format:${_git_log_oneline_format} origin/HEAD..HEAD'
+  alias glgd='glg --date-order'
 fi
 
 # added by travis gem

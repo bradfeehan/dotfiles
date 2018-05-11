@@ -134,9 +134,6 @@ zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 # Aliases
 #
 
-alias glga='glg --all'
-alias glgd='glg --date-order'
-
 # git status
 alias gst='gwS'
 
