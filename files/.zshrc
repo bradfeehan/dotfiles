@@ -54,9 +54,6 @@ if [ -n "${_git_log_oneline_format}" ]; then
   alias glgd='glg --date-order'
 fi
 
-# added by travis gem
-[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
-
 # General-purpose command-line aliases
 alias be='bundle exec'
 alias fig='docker-compose'
