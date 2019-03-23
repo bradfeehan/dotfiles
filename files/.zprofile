@@ -105,6 +105,12 @@ if which brew > /dev/null 2>&1; then
       nvm "$@"
     }
   fi
+
+  # GCP CLI
+  if [[ -d "$BREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk" ]]; then
+    . "$BREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+    . "$BREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+  fi
 fi
 
 # Set up Java if present
