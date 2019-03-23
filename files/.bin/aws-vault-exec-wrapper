@@ -1,0 +1,110 @@
+#!/bin/bash
+
+# Unofficial Bash Strict Mode
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
+
+declare -r PROGRAM_NAME="$(basename $0)"
+
+main() {
+    # Validate CLI arguments, short-circuit for help
+    [[ $# -lt 3 ]] && abort 1 "$(usage)"
+
+    local aws_vault="$1" command="$2"
+    shift 2
+
+    [[ "$1" =~ ^(-h|--help)$ ]] && abort 0 "$(usage)"
+
+    # Determine known AWS profile names
+    local known_profiles
+    IFS=$'\n' read -r -d $'\0' -a known_profiles < <(list_profiles) || :
+
+    # Take profile from:
+    #  - CLI argument
+    #  - AWS_PROFILE
+    #  - AWS_DEFAULT_PROFILE
+    local profile='' profile_source=''
+
+    # if the arg is "--", AWS_PROFILE -> AWS_DEFAULT_PROFILE -> error
+    # elif a profile, use that value
+    # else AWS_PROFILE -> error
+    if [[ "$1" == '--' ]]; then
+        # Asked to guess, fail if we can't
+        if [[ "${AWS_PROFILE:-}" ]]; then
+            profile="${AWS_PROFILE}" profile_source='$AWS_PROFILE'
+        elif [[ "${AWS_DEFAULT_PROFILE:-}" ]]; then
+            profile="${AWS_DEFAULT_PROFILE}" profile_source='$AWS_DEFAULT_PROFILE'
+        else
+            abort 2 "No AWS_PROFILE (or AWS_DEFAULT_PROFILE) in environment"
+        fi
+        shift
+    elif array_contains "$1" "${known_profiles[@]}"; then
+        profile="$1" profile_source='command-line'
+        shift
+    elif [[ "${AWS_PROFILE:-}" ]]; then
+        profile="${AWS_PROFILE}" profile_source='$AWS_PROFILE'
+    else
+        abort 2 "No AWS_PROFILE in environment, and '$1' is not a known profile"
+    fi
+
+    # Validate that the final selected profile is a valid known profile name
+    if ! array_contains "${profile}" "${known_profiles[@]}"; then
+        abort 3 "Unknown AWS profile '${profile}' (from $profile_source)",
+            $'\n'"(check '${aws_vault} list')"
+    fi
+
+    # Prefix the command with "aws-okta exec PROFILE -- ..."
+    IFS=$'\n\t '
+    local -a wrapped_command=("${aws_vault}" exec "${profile}" -- $command "$@")
+    echo >&2 '=>' "$(printf '%q ' "${wrapped_command[@]}")"
+    exec "${wrapped_command[@]}"
+}
+
+usage() {
+    echo_stderr "Usage: ${PROGRAM_NAME} <command> [profile] [args [...]]" $'\n'
+    echo_stderr 'Wraps <command> with "aws-okta exec"' $'\n'
+    echo_stderr '  command: binary to run with AWS privileges'
+    echo_stderr '  profile: AWS profile (defaults to $AWS_PROFILE if missing)'
+    echo_stderr '           If "--", uses $AWS_PROFILE or $AWS_DEFAULT_PROFILE'
+}
+
+list_profiles() {
+    local aws_config_file="${AWS_CONFIG_FILE:-${HOME}/.aws/config}"
+
+    # Create a regular expression pattern to match profiles in the config
+    local s='[[:space:]]' alnum='[[:alnum:]_-]'
+    local pattern="^${s}*\[${s}*profile${s}+(${alnum}+)${s}*\]${s}*$"
+
+    # tell sed to search for pattern, replace it with capture + print
+    local sed_command="s/${pattern}/\1/p"
+
+    sed -En "${sed_command}" "${aws_config_file}"
+}
+
+echo_stderr() {
+    echo >&2 "$@"
+}
+
+abort() {
+    local status=1
+
+    if [[ $# -ge 2 && $1 =~ ^[0-9]+$ ]]; then
+        status="$1"
+        shift
+    fi
+
+    echo_stderr "$@"
+    exit "${status}"
+}
+
+# Usage: array_contains "${needle}" "${haystack[@]}"
+array_contains() {
+    local element pattern="$1"
+    [[ "$pattern" ]] || return 1
+    shift
+    for element; do [[ "$element" == "$pattern" ]] && return 0; done
+    return 1
+}
+
+main "$@"
