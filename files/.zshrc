@@ -19,6 +19,11 @@ if [[ -x '/Applications/Dash.app/Contents/MacOS/Dash' ]]; then
   }
 fi
 
+# RubyMine
+if [[ -x '/Applications/RubyMine.app/Contents/MacOS/rubymine' ]]; then
+  alias mine='/Applications/RubyMine.app/Contents/MacOS/rubymine'
+fi
+
 #
 # Set up Hub alias ("git" runs "hub")
 #
