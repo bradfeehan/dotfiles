@@ -24,6 +24,22 @@ if [[ -x '/Applications/RubyMine.app/Contents/MacOS/rubymine' ]]; then
   alias mine='/Applications/RubyMine.app/Contents/MacOS/rubymine'
 fi
 
+# Kubernetes aliases
+if [[ -x '/usr/local/bin/kubectl' && -f "${HOME}/.kubectl_aliases" ]]; then
+  source "${HOME}/.kubectl_aliases"
+
+  # Print expanded command before running it
+  function kubectl() {
+    printf '=> kubectl'
+    [[ $# -gt 0 ]] && printf ' %q' "$@"
+    printf '\n'
+    command kubectl "$@"
+  }
+
+  # Extra aliases
+  alias kgp=kgpo
+fi
+
 #
 # Set up Hub alias ("git" runs "hub")
 #
