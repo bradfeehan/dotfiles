@@ -28,6 +28,7 @@ cask 'caskroom/fonts/font-hack'
 # Utilities
 tap 'bradfeehan/formulae'
 brew 'resize-dock-external-monitor'
+brew 'aws-vault-exec-wrapper'
 
 # Mac App Store
 mas 'Amphetamine', id: 937984704
