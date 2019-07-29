@@ -65,7 +65,7 @@ function gpu {
 alias gpr='git pull-request'
 
 # Git Branch Clean -- deletes branches that have been merged to master
-alias gbC='git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d'
+alias gbC='git branch --merged master | grep -v "[* ] master" | xargs -n 1 git branch -d'
 
 # Git Log Graph -- shows a nice overview of history for the repository
 if [ -n "${_git_log_oneline_format}" ]; then
