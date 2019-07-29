@@ -140,5 +140,3 @@ alias gst='gwS'
 
 # git submodule update --init
 alias gsu='gSI'
-
-alias j='z'
