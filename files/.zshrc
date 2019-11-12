@@ -67,6 +67,9 @@ alias gpr='git pull-request'
 # Git Branch Clean -- deletes branches that have been merged to master
 alias gbC='git branch --merged master | grep -v "[* ] master" | xargs -n 1 git branch -d'
 
+# Git Fetch Rebase + Clean -- fetches with rebase, then cleans branches
+alias gfrC='gfr -p && gbC'
+
 # Git Log Graph -- shows a nice overview of history for the repository
 if [ -n "${_git_log_oneline_format}" ]; then
   alias glg='git log --first-parent --topo-order --glob=heads --graph --pretty=format:${_git_log_oneline_format}'
