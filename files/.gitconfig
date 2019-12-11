@@ -1,6 +1,7 @@
 [user]
   name  = Brad Feehan
   email = git@bradfeehan.com
+  signingkey = 49AFF2D353B3447DB67F2FEC2567C2755FCB993D
 
 [core]
   excludesfile = ~/.gitignore.global
@@ -79,3 +80,5 @@
 	required = true
 [rerere]
 	enabled = true
+[commit]
+	gpgsign = true
