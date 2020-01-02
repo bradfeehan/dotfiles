@@ -94,6 +94,3 @@ alias avtf='av terraform'
 alias ao='aws-vault-exec-wrapper aws-okta'
 alias zaws='ao aws'
 alias zsm='ao "bundle exec stack_master"'
-
-# GPG agent
-export GPG_TTY="$(tty)"
