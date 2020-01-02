@@ -19,7 +19,7 @@ fi
 
 # Use Dash for viewing man pages if present
 if [[ -x '/Applications/Dash.app/Contents/MacOS/Dash' ]]; then
-  man() {
+  function man() {
     open "dash://man:$*"
   }
 fi
