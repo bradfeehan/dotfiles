@@ -5,6 +5,11 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+if [[ -e "${ZDOTDIR:-$HOME}/.p10k.zsh" ]]; then
+  source ~/.p10k.zsh
+fi
+
 # Source Prezto
 #
 # https://github.com/sorin-ionescu/prezto
