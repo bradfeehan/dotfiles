@@ -1,7 +1,7 @@
 [user]
   name  = Brad Feehan
   email = git@bradfeehan.com
-  signingkey = 49AFF2D353B3447DB67F2FEC2567C2755FCB993D
+  signingkey = 8E471CFF2661B2F22BFE38E13C9F218BB2BBCAFD
 
 [core]
   excludesfile = ~/.gitignore.global
