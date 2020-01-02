@@ -33,6 +33,7 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'archive' \
+  'command-not-found' \
   'fasd' \
   'git' \
   'gpg' \
