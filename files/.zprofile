@@ -117,6 +117,16 @@ fi
 if [[ -x /usr/libexec/java_home ]] && /usr/libexec/java_home &>/dev/null; then
   export JAVA_HOME=$(/usr/libexec/java_home)
   export JRUBY_OPTS="-J-Djruby.compile.mode=OFF"
+else
+  # Fall back to OpenJDK if present
+  if [[ -d "${BREW_PREFIX}/opt/openjdk/bin" ]]; then
+    path=(
+      $BREW_PREFIX/opt/openjdk/bin
+      $path
+    )
+  fi
+
+  # Otherwise, give up trying to set up Java
 fi
 
 # Set up Go if present
