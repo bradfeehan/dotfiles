@@ -1,3 +1,4 @@
+/.nova/
 /.vscode/
 .DS_Store
 *.sublime-project
