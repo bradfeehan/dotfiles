@@ -46,6 +46,15 @@ if [[ -x '/usr/local/bin/kubectl' && -f "${HOME}/.kubectl_aliases" ]]; then
 fi
 
 #
+# Pyenv
+#
+if [[ -x '/usr/local/bin/pyenv' ]]; then
+  function pyenv {
+    LANG=C /usr/local/bin/pyenv "$@"
+  }
+fi
+
+#
 # Set up Hub alias ("git" runs "hub")
 #
 if [[ -x '/usr/local/bin/hub' ]]; then
