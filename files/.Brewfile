@@ -2,10 +2,13 @@
 brew 'awscli'
 brew 'aws-okta'
 cask 'aws-vault'
+brew 'chnode'
 brew 'chruby'
 brew 'fasd'
 brew 'hub'
+brew 'jq'
 brew 'mas'
+brew 'node-build'
 brew 'pv'
 brew 'pstree'
 brew 'ruby-install'
@@ -15,9 +18,11 @@ brew 'watch'
 # Apps
 cask '1password'
 cask 'bartender'
+cask 'daisydisk'
 cask 'dash'
-cask 'little-snitch'
-cask 'messenger'
+cask 'paw'
+cask 'sequel-pro'
+cask 'shift'
 cask 'the-clock'
 cask 'visual-studio-code'
 
@@ -31,6 +36,6 @@ brew 'resize-dock-external-monitor'
 brew 'aws-vault-exec-wrapper'
 
 # Mac App Store
+mas '1Blocker for Safari', id: 1107421413
 mas 'Amphetamine', id: 937984704
-mas 'Australian Weather', id: 489725673
 mas 'Stay', id: 435410196
