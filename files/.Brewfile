@@ -30,8 +30,8 @@ cask 'the-clock'
 cask 'visual-studio-code'
 
 # Hack system font
-tap 'caskroom/fonts'
-cask 'caskroom/fonts/font-hack'
+tap 'homebrew/cask-fonts'
+cask 'homebrew/cask-fonts/font-hack'
 
 # Utilities
 tap 'bradfeehan/formulae'
