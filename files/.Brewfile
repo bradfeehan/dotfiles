@@ -31,7 +31,7 @@ cask 'visual-studio-code'
 
 # Hack system font
 tap 'homebrew/cask-fonts'
-cask 'homebrew/cask-fonts/font-hack'
+cask 'homebrew/cask-fonts/font-hack-nerd-font'
 
 # Utilities
 tap 'bradfeehan/formulae'
