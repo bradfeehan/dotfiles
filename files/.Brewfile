@@ -2,7 +2,6 @@
 brew 'awscli'
 brew 'aws-okta'
 cask 'aws-vault'
-brew 'chnode'
 brew 'chruby'
 brew 'fasd'
 brew 'hub'
@@ -14,6 +13,10 @@ brew 'pstree'
 brew 'ruby-install'
 brew 'terraform'
 brew 'watch'
+
+# External taps
+tap 'tkareine/homebrew-chnode'
+brew 'chnode'
 
 # Apps
 cask '1password'
