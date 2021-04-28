@@ -1,0 +1,9 @@
+eval_gemfile 'Gemfile'
+
+# Misc
+gem 'pry'   # better console than irb
+gem 'yard'  # for Solargraph to be able to document Gems
+
+# For vscode-ruby-debugger https://github.com/rubyide/vscode-ruby
+gem 'ruby-debug-ide'
+gem 'debase'
