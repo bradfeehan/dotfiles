@@ -134,3 +134,7 @@ alias avtf='av terraform'
 alias ao='aws-vault-exec-wrapper aws-okta'
 alias zaws='ao aws'
 alias zsm='ao "bundle exec stack_master"'
+# BEGIN ZDI
+export DOCKER_FOR_MAC_ENABLED=true
+source /Users/bfeehan/Code/zendesk/zdi/dockmaster/zdi.sh
+# END ZDI
