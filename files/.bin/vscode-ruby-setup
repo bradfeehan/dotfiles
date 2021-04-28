@@ -1,0 +1,118 @@
+#!/bin/bash
+# set -euo pipefail
+IFS=$'\n\t'
+
+# Installs prerequisites for Ruby to work well with Visual Studio Code
+
+
+
+
+
+
+
+######################################
+# OLD
+######################################
+# # 1. install solargraph in each ruby
+# # 2. install YARD docs in each ruby for all gems (see solargraph docs)
+# # 3. Ensure bundler is configured globally to put gems in project folders
+
+# set +u
+# source /usr/local/share/chruby/chruby.sh
+# set -u
+
+# # Prints a command and then runs it
+# run_command() {
+#     local bold=$'\e[1m'
+#     local reset=$'\e[0m'
+#     echo "${bold}$ $(printf '%q ' "$@")${reset}"
+#     "$@"
+# }
+
+# # Finds a gemfile with a given name by ascending the directory heirarchy
+# find_file_in_heirarchy() {
+#     local gemfile="$1"
+#     local dir="${PWD}"
+#     until [[ -z "${dir}" ]]; do
+#         if [[ -r "${dir}/${gemfile}" && ! -d "${dir}/${gemfile}" ]]; then
+#             printf '%s' "${dir}/${gemfile}"
+#             return
+#         fi
+#         dir="${dir%/*}"
+#     done
+# }
+
+# # Wrap bundler to use either Gemfile.bradfeehan.local instead of Gemfile,
+# # and if not present, default to just using ~/.Gemfile.global if it exists.
+# bundle() {
+#     local bundler_gemfile regular_gemfile
+#     local local_gemfile='Gemfile.bradfeehan.local'
+#     local global_gemfile="${HOME}/.Gemfile.global"
+
+#     bundler_gemfile="$(find_file_in_heirarchy "${local_gemfile}")"
+
+#     if [[
+#         -z "${bundler_gemfile}" &&
+#         -r "${global_gemfile}" &&
+#         ! -d "${global_gemfile}"
+#     ]]; then
+#         # 1. find the place where the actual Gemfile is
+#         regular_gemfile="$(find_file_in_heirarchy 'Gemfile')"
+
+#         # 2. then link the global one here as the local one
+#         run_command ln -sfv "${global_gemfile}" "${regular_gemfile%/*}/${local_gemfile}"
+
+#         # 3. try again
+#         bundler_gemfile="$(find_file_in_heirarchy "${local_gemfile}")"
+#     fi
+
+#     if [[ -z "${bundler_gemfile}" ]]; then
+#         echo "Couldn't find a Gemfile" >&2
+#         exit 1
+#     fi
+
+#     if [[ $# -eq 0 ]]; then
+#         run_command env BUNDLE_GEMFILE="${bundler_gemfile}" bundle
+#     else
+#         run_command env BUNDLE_GEMFILE="${bundler_gemfile}" bundle "$@"
+#     fi
+# }
+
+
+# # Taken from chruby, used under license Copyright (c) 2012-2013 Hal Brodigan
+# # See https://github.com/postmodern/chruby/blob/master/share/chruby/auto.sh
+# RUBY_AUTO_VERSION=
+# function chruby_auto() {
+# 	local dir="$PWD/" version
+
+# 	until [[ -z "$dir" ]]; do
+# 		dir="${dir%/*}"
+
+# 		if { read -r version <"$dir/.ruby-version"; } 2>/dev/null || [[ -n "$version" ]]; then
+# 			if [[ "$version" == "$RUBY_AUTO_VERSION" ]]; then return
+# 			else
+# 				RUBY_AUTO_VERSION="$version"
+# 				chruby "$version"
+# 				return $?
+# 			fi
+# 		fi
+# 	done
+
+# 	if [[ -n "$RUBY_AUTO_VERSION" ]]; then
+# 		chruby_reset
+# 		unset RUBY_AUTO_VERSION
+# 	fi
+# }
+
+# set +u
+# chruby ruby
+# set -u
+
+# run_command chruby_auto
+# run_command gem install solargraph
+# run_command solargraph download-core
+# bundle install
+# bundle exec yard gems --quiet --rebuild
+
+# echo 'Gems rebuilt. TODO: Ensure bundler is configured globally to put gems in project folders' >&2
+# exit 1

@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# Runs chruby_auto followed by bundle
+
+# Adapted from chruby, used under license Copyright (c) 2012-2013 Hal Brodigan
+# See https://github.com/postmodern/chruby/blob/master/share/chruby/auto.sh
+find_ruby_version() {
+    local dir="$PWD/" version
+    until [[ -z "$dir" ]]; do
+        if { read -r version < "$dir/.ruby-version"; } 2> /dev/null || [[ -n "$version" ]]; then
+            printf '%s' "$version"
+            return
+        fi
+        dir="${dir%/*}"
+    done
+}
+
+ruby_version="$(find_ruby_version)"
+
+if [[ -z "$ruby_version" ]]; then
+    echo 'Unable to find a .ruby-version' >&2
+    exit 1
+fi
+
+if [[ $# -eq 0 ]]; then
+    exec /usr/local/bin/chruby-exec ruby "${ruby_version}" -- bundle
+else
+    exec /usr/local/bin/chruby-exec ruby "${ruby_version}" -- bundle "$@"
+fi
