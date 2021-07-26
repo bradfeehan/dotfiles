@@ -72,9 +72,6 @@ if [[ -d /usr/local/heroku/bin ]]; then
   )
 fi
 
-# Setup travis CI
-[[ -f "$HOME/.travis/travis.sh" ]] && source "$HOME/.travis/travis.sh"
-
 # Add Homebrew's binary directories to $path
 if which brew > /dev/null 2>&1; then
   # Avoid executing $(brew) because it's slow; assume /usr/local if present
