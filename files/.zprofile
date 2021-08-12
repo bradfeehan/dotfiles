@@ -128,16 +128,7 @@ fi
 
 # Set up Go if present
 if which go > /dev/null 2>&1; then
-  if [[ -z "$GOROOT" ]]; then
-    # Avoid executing $(go) because it's slow; assume the binary location
-    go_binary="$(which go)"
-    go_root="${go_binary%/bin/go}"
-    if [[ -d "${go_root}" ]]; then
-      export GOROOT="${go_root}"
-    else
-      export GOROOT="$(go env GOROOT)"
-    fi
-  fi
+  export GOROOT="$(go env GOROOT)"
 
   if [[ -z "$GOPATH" ]]; then
     export GOPATH="$HOME/Projects/go"
