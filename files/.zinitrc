@@ -33,8 +33,8 @@ zinit --wait --lucid for \
     fzf \
   --as='program' \
     'clvv/fasd' \
-    'Aloxaf/fzf-tab' \
   --atinit='zicompinit; zicdreplay' \
+    'Aloxaf/fzf-tab' \
     'zdharma/fast-syntax-highlighting' \
   --atload='_zsh_autosuggest_start' \
     'zsh-users/zsh-autosuggestions' \
