@@ -40,7 +40,7 @@ brew 'resize-dock-external-monitor'
 brew 'aws-vault-exec-wrapper'
 
 # Mac App Store
-mas '1Blocker for Safari', id: 1107421413
+mas '1Blocker', id: 1365531024
 mas 'Amphetamine', id: 937984704
 mas 'Stay', id: 435410196
 mas 'Weather Widget Desktop +', id: 1201214408
