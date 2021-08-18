@@ -45,3 +45,4 @@ mas 'Amphetamine', id: 937984704
 mas 'iStat Menus', id: 1319778037
 mas 'Stay', id: 435410196
 mas 'Weather Widget Desktop +', id: 1201214408
+mas 'Yubico Authenticator', id: 1497506650
