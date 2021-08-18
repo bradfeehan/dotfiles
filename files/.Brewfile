@@ -42,5 +42,6 @@ brew 'aws-vault-exec-wrapper'
 # Mac App Store
 mas '1Blocker', id: 1365531024
 mas 'Amphetamine', id: 937984704
+mas 'iStat Menus', id: 1319778037
 mas 'Stay', id: 435410196
 mas 'Weather Widget Desktop +', id: 1201214408
