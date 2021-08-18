@@ -80,7 +80,7 @@
 	required = true
 [rerere]
 	enabled = true
-[commit]
-	gpgsign = true
+# [commit]
+# 	gpgsign = true
 [init]
 	defaultBranch = main
