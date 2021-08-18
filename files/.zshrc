@@ -34,6 +34,15 @@ if [[ -x '/usr/local/bin/pyenv' ]]; then
   }
 fi
 
+# chruby
+if [[ -f /usr/local/share/chruby/chruby.sh ]]; then
+  source /usr/local/share/chruby/chruby.sh
+
+  if [[ -f /usr/local/share/chruby/auto.sh ]]; then
+    source /usr/local/share/chruby/auto.sh
+  fi
+fi
+
 # chnode
 if [[ -f /usr/local/share/chnode/chnode.sh ]]; then
   source /usr/local/share/chnode/chnode.sh
