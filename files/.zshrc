@@ -1,5 +1,8 @@
 # Only sourced by interactive shells
 
+# Use colour
+export CLICOLOR=1
+
 # Load convenience aliases
 if [[ -d "${ZDOTDIR:-${HOME}}/.aliases.d" ]]; then
   for file in "${ZDOTDIR:-${HOME}}/.aliases.d"/*; do
