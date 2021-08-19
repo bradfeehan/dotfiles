@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # The root directory of the dotfiles repository (containing this script)
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd -P)"
 
 check_git_remote() {
   local root="$1"
@@ -68,13 +68,13 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ "$force" ]]; then
-  LN='ln -sfv'
+  LN=(ln -sfv)
 else
-  LN='ln -sv'
+  LN=(ln -sv)
 fi
 
 if [[ "$dry_run" ]]; then
-  LN="echo ${LN}"
+  LN=(echo "${LN[@]}")
 fi
 
 [[ "$dry_run" ]] && debug "--dry-run enabled"
@@ -84,13 +84,16 @@ fi
 checks="$ROOT/checks"
 
 # Directory containing template dotfiles
-source="$ROOT/files"
+files="$ROOT/files"
+
+# Directory containing template directories
+directories="$ROOT/directories"
 
 # The target directory to place the dotfiles
 base_path="$HOME"
 
 # Perform checks
-while read -d $'\0' -r check_script; do
+for check_script in "${checks}"/*; do
   debug "Running check: ${check_script##*/}"
   (. "$check_script") && status="$?" || status="$?"
   if [[ "$status" -ne 0 ]]; then
@@ -99,33 +102,39 @@ while read -d $'\0' -r check_script; do
   else
     debug "Check ${check_script##*/} passed"
   fi
-done < <(find "$checks" -type f -print0)
+done
 
-# Complete list of dotfiles
-dotfiles="$(find "$source" -type f | sed -e "s%${source}\/%%")"
-
-for dotfile in $dotfiles; do
-  target="${source}/${dotfile}"
-  destination="${base_path}/${dotfile}"
-  directory="${destination%/*}"
+safe_ln() {
+  local name="$1" target="$2" destination="$3"
 
   # Check and make sure it doesn't already exist as a symlink or file
   if [[ -L "$destination" ]]; then
     if [[ "$force" ]]; then
-      debug "${dotfile}: Overwriting existing symlink (using --force)"
+      debug "${name}: Overwriting existing symlink (using --force)"
     else
-      debug "${dotfile}: Skipping; this already exists as a symlink"
+      debug "${name}: Skipping; this already exists as a symlink"
       continue
     fi
   elif [[ -e "$destination" ]]; then
     if [[ "$force" ]]; then
-      debug "${dotfile}: Overwriting existing file (using --force)"
+      debug "${name}: Overwriting existing file (using --force)"
     else
-      debug "${dotfile}: Skipping; destination is not empty"
+      debug "${name}: Skipping; destination is not empty"
       echo "WARNING: the destination is not empty: '${destination}'"
       continue
     fi
   fi
+
+  # Do it!
+  "${LN[@]}" "$target" "$destination"
+}
+
+# Link files
+while read -d $'\n' -r dotfile; do
+  # debug "Processing dotfile='${dotfile}'"
+  target="${files}/${dotfile}"
+  destination="${base_path}/${dotfile}"
+  directory="${destination%/*}"
 
   # Ensure containing directory exists
   if [[ ! -d "$directory" ]]; then
@@ -133,8 +142,15 @@ for dotfile in $dotfiles; do
     mkdir -p "$directory"
   fi
 
-  # Do it!
-  eval "$LN" "$target" "$destination"
-done
+  safe_ln "${dotfile}" "${target}" "${destination}"
+done < <(find "$files" -type f | sed -e "s%${files}\/%%")
+
+# Link directories
+while read -d $'\n' -r directory; do
+  target="${directories}/${directory}"
+  destination="${base_path}/${directory}"
+
+  safe_ln "${directory}" "${target}" "${destination}"
+done < <(find "$directories" -type d -mindepth 1 -maxdepth 1 | sed -e "s%${directories}\/%%")
 
 debug "Done"
