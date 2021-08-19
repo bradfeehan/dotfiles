@@ -1,3 +1,6 @@
 [submodule "submodules/romkatv/powerlevel10k"]
 	path = submodules/romkatv/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "submodules/Aloxaf/fzf-tab"]
+	path = submodules/Aloxaf/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab
