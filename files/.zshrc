@@ -1,12 +1,23 @@
 # Only sourced by interactive shells
 
+source_compiled() {
+  local file="${1%.zwc}"
+
+  # If there is no *.zsh.zwc or it's older than *.zsh, compile *.zsh into *.zsh.zwc.
+  if [[ ! "${file}".zwc -nt "${file}" ]]; then
+    : zcompile "${file}"
+  fi
+
+  source "${file}"
+}
+
 # Use colour
 export CLICOLOR=1
 
 # Load convenience aliases
 if [[ -d "${ZDOTDIR:-${HOME}}/.aliases.d" ]]; then
   for file in "${ZDOTDIR:-${HOME}}/.aliases.d"/*; do
-    source "${file}"
+    source_compiled "${file}"
   done
 fi
 
@@ -337,13 +348,13 @@ zshrc_path="$(readlink "${HOME}/.zshrc")"
 repo_root="$(cd "${zshrc_path%/*}/.." > /dev/null 2>&1 && pwd -P)"
 
 source "${HOME}/.p10k.zsh"
-source "${repo_root}/submodules/romkatv/powerlevel10k/powerlevel10k.zsh-theme"
-source "${repo_root}/submodules/zsh-users/zsh-completions/zsh-completions.plugin.zsh"
+source_compiled "${repo_root}/submodules/romkatv/powerlevel10k/powerlevel10k.zsh-theme"
+source_compiled "${repo_root}/submodules/zsh-users/zsh-completions/zsh-completions.plugin.zsh"
 autoload compinit
 compinit
-source "${repo_root}/submodules/Aloxaf/fzf-tab/fzf-tab.plugin.zsh" # after compinit; before f-sy-h + autosuggestions
-source "${repo_root}/submodules/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" # after compinit
-source "${repo_root}/submodules/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh" # after compinit
+source_compiled "${repo_root}/submodules/Aloxaf/fzf-tab/fzf-tab.plugin.zsh" # after compinit; before f-sy-h + autosuggestions
+source_compiled "${repo_root}/submodules/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" # after compinit
+source_compiled "${repo_root}/submodules/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh" # after compinit
 
 unset repo_root zshrc_path
 
