@@ -31,7 +31,9 @@ export GREP_COLORS=${GREP_COLORS:-"mt=$GREP_COLOR"} # GNU.
 # Use Dash for viewing man pages if present
 if [[ -x '/Applications/Dash.app/Contents/MacOS/Dash' ]]; then
   function man() {
-    open "dash://man:$*"
+    local query="$*"
+    query="$(python -c "import urllib, sys; print urllib.quote(sys.argv[1])" "${query}")"
+    open "dash://man%3A${query}"
   }
 fi
 
