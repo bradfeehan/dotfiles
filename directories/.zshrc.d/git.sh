@@ -2,6 +2,11 @@
 # My commonly used shell aliases and helper functions for Git
 #
 
+# Set up Hub alias ("git" runs "hub")
+if [[ -x '/usr/local/bin/hub' ]]; then
+  alias git='hub'
+fi
+
 # git status
 alias gst='gwS'
 
