@@ -27,7 +27,6 @@ cask 'bartender'
 cask 'daisydisk'
 cask 'dash'
 cask 'paw'
-cask 'sequel-pro'
 cask 'shift'
 cask 'the-clock'
 cask 'visual-studio-code'
@@ -45,6 +44,7 @@ brew 'aws-vault-exec-wrapper'
 mas '1Blocker', id: 1365531024
 mas 'Amphetamine', id: 937984704
 mas 'iStat Menus', id: 1319778037
+mas 'Sequel Ace', id: 1518036000
 mas 'Stay', id: 435410196
 mas 'Weather Widget Desktop +', id: 1201214408
 mas 'Yubico Authenticator', id: 1497506650
