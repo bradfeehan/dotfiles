@@ -7,6 +7,9 @@
 # Do not overwrite existing files with > and >>. Use >! and >>! to bypass.
 unsetopt CLOBBER
 
+# Exclude commands from history by prepending a space
+setopt HIST_IGNORE_SPACE
+
 # Use colour
 export CLICOLOR=1
 
