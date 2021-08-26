@@ -58,10 +58,3 @@ source_compiled "${repo_root}/submodules/zdharma/fast-syntax-highlighting/fast-s
 source_compiled "${repo_root}/submodules/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh" # after compinit
 
 unset repo_root zshrc_path
-
-# BEGIN ZDI
-export DOCKER_FOR_MAC_ENABLED=true
-if [[ -s "${HOME}/Code/zendesk/zdi/dockmaster/zdi.sh" ]]; then
-  source "${HOME}/Code/zendesk/zdi/dockmaster/zdi.sh"
-fi
-# END ZDI
