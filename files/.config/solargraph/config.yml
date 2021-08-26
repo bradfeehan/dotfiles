@@ -1,0 +1,21 @@
+---
+include:
+- "**/*.rb"
+- ".bundle/ruby/*/gems/**/*.rb"
+exclude:
+- spec/**/*
+- test/**/*
+- vendor/**/*
+reporters:
+- require_not_found
+- typecheck
+- update_errors
+# formatter:
+#   rubocop:
+#     cops: safe
+#     except: []
+#     only: []
+#     extra_args: []
+require_paths: []
+plugins: []
+max_files: 5000
