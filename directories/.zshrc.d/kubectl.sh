@@ -1,8 +1,8 @@
 if (( ${+commands[kubectl]} )); then
   function kubectl_alias() {
-    printf '=> kubectl'
-    [[ $# -gt 0 ]] && printf ' %q' "$@"
-    printf '\n'
+    printf '=> kubectl' >&2
+    [[ $# -gt 0 ]] && printf ' %q' "$@" >&2
+    printf '\n' >&2
     kubectl "$@"
   }
 
