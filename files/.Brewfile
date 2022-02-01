@@ -1,6 +1,5 @@
 # CLI tools
 brew 'awscli'
-brew 'aws-okta'
 cask 'aws-vault'
 brew 'chruby'
 brew 'fasd'
@@ -27,7 +26,6 @@ cask 'bartender'
 cask 'daisydisk'
 cask 'dash'
 cask 'paw'
-cask 'shift'
 cask 'the-clock'
 cask 'visual-studio-code'
 
