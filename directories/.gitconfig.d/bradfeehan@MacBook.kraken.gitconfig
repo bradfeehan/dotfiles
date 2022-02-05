@@ -1,0 +1,7 @@
+[user]
+  name  = Brad Feehan
+  email = brad.feehan@kraken.com
+  signingkey = A0FEC45595A26F8BEB8E992D93999C169EDC9CC3
+
+[commit]
+  gpgsign = true

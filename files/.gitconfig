@@ -1,8 +1,3 @@
-[user]
-  name  = Brad Feehan
-  email = git@bradfeehan.com
-  signingkey = 8E471CFF2661B2F22BFE38E13C9F218BB2BBCAFD
-
 [core]
   excludesfile = ~/.gitignore.global
   pager = less --RAW-CONTROL-CHARS --tabs=1,5
@@ -75,7 +70,9 @@
   required = true
 [rerere]
   enabled = true
-# [commit]
-# 	gpgsign = true
 [init]
   defaultBranch = main
+
+# Overrides for this local machine
+[include]
+  path = .gitconfig.d/local.gitconfig

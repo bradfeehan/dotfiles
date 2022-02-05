@@ -1,0 +1,7 @@
+[user]
+  name  = Brad Feehan
+  email = git@bradfeehan.com
+  signingkey = FE642AA16D833108C8C973EEE93B8374E67DA639
+
+[commit]
+  gpgsign = true
