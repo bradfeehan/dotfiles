@@ -6,7 +6,7 @@
 [core]
   excludesfile = ~/.gitignore.global
   pager = less --RAW-CONTROL-CHARS --tabs=1,5
-	attributesfile = /Users/bradfeehan/.gitattributes.global
+  attributesfile = /Users/bradfeehan/.gitattributes.global
 
 [credential]
   helper = osxkeychain
@@ -29,7 +29,7 @@
 
 [merge]
   defaultToUpstream = true
-	conflictstyle = diff3
+  conflictstyle = diff3
 
 [merge "bundler_lockfile"]
   name = Resolve merge conflicts in Gemfile.lock by running bundle install
@@ -72,15 +72,15 @@
   compactionHeuristic = 1
 
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
 
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
 [rerere]
-	enabled = true
+  enabled = true
 # [commit]
 # 	gpgsign = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
