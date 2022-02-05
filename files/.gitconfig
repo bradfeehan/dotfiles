@@ -30,10 +30,6 @@
   defaultToUpstream = true
   conflictstyle = diff3
 
-[merge "bundler_lockfile"]
-  name = Resolve merge conflicts in Gemfile.lock by running bundle install
-  driver = "echo Merge conflict in Gemfile.lock\\; running bundle install && bundle install --quiet"
-
 [alias]
   #
   # Abbreviations
