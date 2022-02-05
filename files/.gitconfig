@@ -6,7 +6,6 @@
 [core]
   excludesfile = ~/.gitignore.global
   pager = less --RAW-CONTROL-CHARS --tabs=1,5
-  attributesfile = /Users/bradfeehan/.gitattributes.global
 
 [credential]
   helper = osxkeychain
