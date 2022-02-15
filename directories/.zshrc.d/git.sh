@@ -2,6 +2,52 @@
 # My commonly used shell aliases and helper functions for Git
 #
 
+###########
+# Git IDs
+###########
+
+# Sets the user ID (e-mail and GPG key ID)
+git-config-set-user-id() {
+    local id="$1"
+    local git_id_root="${GIT_ID_ROOT:-${HOME}/.gitidentities.d}"
+    local git_id_file="${git_id_root}/${id}"
+
+    if ! git config --local --get user.name > /dev/null 2>&1; then
+        printf >&2 '%s\n' \
+            'Error fetching current username from config:' '' \
+            '$ git config --local --get user.name' ''
+
+        git config --local --get user.name >&2
+        return 1
+    fi
+
+    if [[ ! -e "${git_id_file}" ]]; then
+        printf >&2 '%s\n' \
+            "Error: Unknown Git ID profile '${id}'." \
+            "Does the profile exist at '${git_id_file}'?"
+        return 1
+    fi
+
+    local tuple="$(cat "${git_id_file}")"
+    local user_name="${tuple%%:*}" tail="${tuple#*:}"
+    local user_email="${tail%%:*}"
+    local user_keyid="${tail#*:}"
+    git config --local --add user.name "${user_name}"
+    git config --local --add user.email "${user_email}"
+    git config --local --add user.signingkey "${user_keyid}"
+
+    printf >&2 '%s\n' \
+        "Name: '$(git config --get --local user.name)'" \
+        "Email: '$(git config --get --local user.email)'" \
+        "Key ID: '$(git config --get --local user.signingkey)'"
+}
+
+alias gID=git-config-set-user-id
+
+###########
+###########
+###########
+
 # Set up Hub alias ("git" runs "hub")
 if [[ -x '/usr/local/bin/hub' ]]; then
   alias git='hub'
