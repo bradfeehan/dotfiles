@@ -42,8 +42,6 @@ git-config-set-user-id() {
         "Key ID: '$(git config --get --local user.signingkey)'"
 }
 
-alias gID=git-config-set-user-id
-
 ###########
 ###########
 ###########
