@@ -75,4 +75,4 @@
 
 # Overrides for this local machine
 [include]
-  path = .gitconfig.d/local.gitconfig
+  path = .gitconfig.local
