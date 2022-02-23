@@ -1,7 +1,9 @@
-if [[ -f /usr/local/share/chruby/chruby.sh ]]; then
-  source /usr/local/share/chruby/chruby.sh
+if [[ "${HOMEBREW_PREFIX:-}" && -d "${HOMEBREW_PREFIX:-}" ]]; then
+  if [[ -f "${HOMEBREW_PREFIX}/share/chruby/chruby.sh" ]]; then
+    source "${HOMEBREW_PREFIX}/share/chruby/chruby.sh"
 
-  if [[ -f /usr/local/share/chruby/auto.sh ]]; then
-    source /usr/local/share/chruby/auto.sh
+    if [[ -f "${HOMEBREW_PREFIX}/share/chruby/auto.sh" ]]; then
+      source "${HOMEBREW_PREFIX}/share/chruby/auto.sh"
+    fi
   fi
 fi

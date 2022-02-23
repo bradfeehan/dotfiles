@@ -1,9 +1,11 @@
-if [[ -f /usr/local/share/chnode/chnode.sh ]]; then
-  source /usr/local/share/chnode/chnode.sh
+if [[ "${HOMEBREW_PREFIX:-}" && -d "${HOMEBREW_PREFIX:-}" ]]; then
+  if [[ -f "${HOMEBREW_PREFIX}/share/chnode/chnode.sh" ]]; then
+    source "${HOMEBREW_PREFIX}/share/chnode/chnode.sh"
 
-  if [[ -f /usr/local/share/chnode/auto.sh ]]; then
-    source /usr/local/share/chnode/auto.sh
-    precmd_functions+=(chnode_auto)
+    if [[ -f "${HOMEBREW_PREFIX}/share/chnode/auto.sh" ]]; then
+      source "${HOMEBREW_PREFIX}/share/chnode/auto.sh"
+      precmd_functions+=(chnode_auto)
+    fi
   fi
 fi
 

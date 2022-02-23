@@ -47,7 +47,7 @@ git-config-set-user-id() {
 ###########
 
 # Set up Hub alias ("git" runs "hub")
-if [[ -x '/usr/local/bin/hub' ]]; then
+if [[ -x "${HOMEBREW_PREFIX}/bin/hub" ]]; then
   alias git='hub'
 fi
 
