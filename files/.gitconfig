@@ -1,6 +1,8 @@
 [core]
+  attributesfile = ~/.gitattributes.global
   excludesfile = ~/.gitignore.global
   pager = less --RAW-CONTROL-CHARS --tabs=1,5
+  whitespace = cr-at-eol,space-before-tab,tab-in-indent,trailing-space,tabwidth=4
 
 [credential]
   helper = osxkeychain
