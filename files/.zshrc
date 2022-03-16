@@ -20,11 +20,8 @@ alias tf='terraform'
 alias sv='supervisorctl'
 alias av='aws-vault-exec-wrapper aws-vault'
 alias avws='av aws'
+alias vaws='av aws'
 alias avtf='av terraform'
-alias ao='aws-vault-exec-wrapper aws-okta'
-alias zaws='ao aws'
-alias zsm='ao "bundle exec stack_master"'
-
 
 #
 # Load plugins and scripts
