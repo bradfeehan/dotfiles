@@ -16,7 +16,6 @@ export CLICOLOR=1
 # General-purpose command-line aliases
 alias be='bundle exec'
 alias fig='docker-compose'
-alias tf='terraform'
 alias sv='supervisorctl'
 alias av='aws-vault-exec-wrapper aws-vault'
 alias avws='av aws'
