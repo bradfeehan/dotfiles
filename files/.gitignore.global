@@ -3,6 +3,7 @@
 .DS_Store
 *.sublime-project
 *.sublime-workspace
+*.code-workspace
 /vendor/bundle/ruby/*/bin/
 /vendor/bundle/ruby/*/cache/
 /vendor/bundle/ruby/*/extensions/
