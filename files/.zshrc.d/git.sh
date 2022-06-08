@@ -73,7 +73,8 @@ function gpu {
 alias gpr='git pull-request'
 
 # Git Branch Clean -- deletes branches that have been merged to master
-alias gbC='git branch --merged master | grep -v "[* ] master" | xargs -n 1 git branch -d'
+alias git-main-branch-name='git branch -r | sed -n "s#[ *] origin/HEAD *-> origin/*##p"'
+alias gbC='git branch --merged "$(git-main-branch-name)" | grep -v "[* ] $(git-main-branch-name)" | sed "s#^[ *] ##" | xargs -n 1 git branch -d'
 
 # Git Fetch Rebase + Clean -- fetches with rebase, then cleans branches
 alias gfrC='gfr -p && gbC'
