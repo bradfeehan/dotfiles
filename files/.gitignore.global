@@ -1,3 +1,4 @@
+/.dccache
 /.nova/
 /.vscode/
 .DS_Store
