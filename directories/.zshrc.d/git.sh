@@ -13,26 +13,49 @@ alias gst='gwS'
 # git submodule update --init
 alias gsu='gSI'
 
-# Shortcut for "git push --set-upstream origin CURRENT_BRANCH_NAME"
-function gpu {
-    local current_branch="$(git symbolic-ref --quiet --short HEAD)"
-
-    if [[ -z "${current_branch}" ]]; then
-        echo "Can't determine current branch name (are you on a branch?)"
-        return 1
-    else
-        git push "$@" --set-upstream origin "$current_branch"
-    fi
-}
-
 # Shortcut for "git pull-request"
 alias gpr='git pull-request'
 
+function git_current_branch_name {
+    local current_branch_name
+    current_branch_name="$(git symbolic-ref --quiet --short HEAD)"
+
+    if [[ -z "${current_branch_name}" ]]; then
+        echo "Can't determine current branch name (are you on a branch?)" >&2
+        return 1
+    fi
+
+    printf '%s\n' "${current_branch_name}"
+}
+
+function git_main_branch_name {
+    git for-each-ref 'refs/remotes/*/HEAD' \
+        --format '%(symref:strip=3)' \
+        --count 1
+}
+
+# Shortcut for "git push --set-upstream origin CURRENT_BRANCH_NAME"
+function gpu {
+    local current_branch
+    current_branch="$(git_current_branch_name)"
+    git push "$@" --set-upstream origin "$current_branch"
+}
+
 # Git Branch Clean -- deletes branches that have been merged to master
-alias gbC='git branch --merged master | grep -v "[* ] master" | xargs -n 1 git branch -d'
+function gbC {
+    local main_branch_name current_branch_name
+    current_branch_name="$(git_current_branch_name)"
+    main_branch_name="$(git_main_branch_name)"
+    git branch --merged "${main_branch_name}" --format '%(refname:lstrip=2)' \
+        | grep --invert-match --fixed-strings "${main_branch_name}" \
+        | grep --invert-match --fixed-strings "${current_branch_name}" \
+        | xargs -n 1 git branch --delete
+}
 
 # Git Fetch Rebase + Clean -- fetches with rebase, then cleans branches
-alias gfrC='gfr -p && gbC'
+function gfrC {
+    git pull --rebase --prune "$@" && gbC
+}
 
 # Git Log Graph -- shows a nice overview of history for the repository
 alias glg='git log --first-parent --topo-order --glob=heads --graph --pretty=format:"%C(yellow)%h%C(reset) %s%C(auto)%d%C(reset)"'
