@@ -30,22 +30,22 @@ for app_path in "${app_paths[@]}"; do
 done
 
 # Homebrew
-if [[ -z "${BREW_PREFIX:-}" ]]; then
-  # Guess BREW_PREFIX based on the default candidate locations
-  for candidate in /usr/local /opt/local /opt/homebrew /home/linuxbrew/.linuxbrew; do
-    [[ -d "${candidate}/Cellar" ]] && export BREW_PREFIX="${candidate}"
+if [[ -z "${HOMEBREW_PREFIX:-}" ]]; then
+  # Guess HOMEBREW_PREFIX based on the default candidate locations
+  for candidate in /opt/homebrew /opt/local /usr/local /home/linuxbrew/.linuxbrew; do
     if [[ -x "${candidate}/bin/brew" ]]; then
       eval "$(${candidate}/bin/brew shellenv)"
+      break
     fi
   done
 fi
 
-if [[ "${BREW_PREFIX:-}" && -d "${BREW_PREFIX:-}" ]]; then
+if [[ "${HOMEBREW_PREFIX:-}" && -d "${HOMEBREW_PREFIX:-}" ]]; then
   # Add Homebrew's Zsh completions to $fpath
-  if [[ -d "$BREW_PREFIX/share/zsh/site-functions" ]]; then
+  if [[ -d "${HOMEBREW_PREFIX}/share/zsh/site-functions" ]]; then
     fpath=(
       $fpath
-      "$BREW_PREFIX/share/zsh/site-functions"
+      "${HOMEBREW_PREFIX}/share/zsh/site-functions"
     )
   fi
 fi

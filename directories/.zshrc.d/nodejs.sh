@@ -1,8 +1,8 @@
-if [[ -f /usr/local/share/chnode/chnode.sh ]]; then
-  source /usr/local/share/chnode/chnode.sh
+if [[ -f "${HOMEBREW_PREFIX:-/usr/local}/share/chnode/chnode.sh" ]]; then
+  source "${HOMEBREW_PREFIX:-/usr/local}/share/chnode/chnode.sh"
 
-  if [[ -f /usr/local/share/chnode/auto.sh ]]; then
-    source /usr/local/share/chnode/auto.sh
+  if [[ -f "${HOMEBREW_PREFIX:-/usr/local}/share/chnode/auto.sh" ]]; then
+    source "${HOMEBREW_PREFIX:-/usr/local}/share/chnode/auto.sh"
     precmd_functions+=(chnode_auto)
   fi
 fi

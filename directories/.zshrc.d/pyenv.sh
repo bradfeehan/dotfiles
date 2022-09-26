@@ -1,5 +1,5 @@
-if [[ -x '/usr/local/bin/pyenv' ]]; then
+if [[ -x "${HOMEBREW_PREFIX}/bin/pyenv" ]]; then
   function pyenv {
-    LANG=C /usr/local/bin/pyenv "$@"
+    LANG=C "${HOMEBREW_PREFIX}/bin/pyenv" "$@"
   }
 fi
