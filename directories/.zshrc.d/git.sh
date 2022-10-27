@@ -29,9 +29,26 @@ function git_current_branch_name {
 }
 
 function git_main_branch_name {
-    git for-each-ref 'refs/remotes/*/HEAD' \
-        --format '%(symref:strip=3)' \
-        --count 1
+    local remote_head='' candidates=(
+        HEAD
+        main
+        master
+        develop
+    )
+
+    for branch_name in "${candidates[@]}"; do
+        result="$(git for-each-ref \
+            "refs/remotes/*/${branch_name}" \
+            --format '%(refname:strip=3)' \
+            --count 1)"
+
+        if [[ "${result}" ]]; then
+            printf '%s\n' "${result}"
+            return 0
+        fi
+    done
+
+    return 1
 }
 
 # Shortcut for "git push --set-upstream origin CURRENT_BRANCH_NAME"
@@ -46,6 +63,10 @@ function gbC {
     local main_branch_name current_branch_name
     current_branch_name="$(git_current_branch_name)"
     main_branch_name="$(git_main_branch_name)"
+    if [[ -z "${main_branch_name}" ]]; then
+        echo "Couldn't determine main branch name" >&2
+        return 1
+    fi
     git branch --merged "${main_branch_name}" --format '%(refname:lstrip=2)' \
         | grep --invert-match --fixed-strings "${main_branch_name}" \
         | grep --invert-match --fixed-strings "${current_branch_name}" \
