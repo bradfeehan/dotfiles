@@ -9,3 +9,8 @@
 /vendor/bundle/ruby/*/extensions/
 /vendor/bundle/ruby/*/gems/
 /vendor/bundle/ruby/*/specifications/
+/.bundle/ruby/*/bin/
+/.bundle/ruby/*/cache/
+/.bundle/ruby/*/extensions/
+/.bundle/ruby/*/gems/
+/.bundle/ruby/*/specifications/
