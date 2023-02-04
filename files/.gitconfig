@@ -76,3 +76,5 @@
 # Overrides for this local machine
 [include]
   path = .gitconfig.d/local.gitconfig
+[hub]
+  protocol = ssh
