@@ -8,7 +8,7 @@ if [[ -f "${HOMEBREW_PREFIX:-/usr/local}/share/chnode/chnode.sh" ]]; then
 fi
 
 # node-build
-if which node-build > /dev/null 2>&1; then
+if (( ${+commands[node-build]} )); then
   node-install() {
     if [[ $# -gt 1 ]]; then
       echo >&2 "Error: node-install requires zero or one arguments"

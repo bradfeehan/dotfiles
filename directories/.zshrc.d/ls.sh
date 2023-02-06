@@ -6,7 +6,7 @@ if [[ ${(@M)${(f)"$(ls --version 2>&1)"}:#*GNU *} ]]; then
   # Define colors for GNU ls if they're not already defined
   if (( ! $+LS_COLORS )); then
     # Try dircolors when available
-    if is-callable 'dircolors'; then
+    if (( ${+commands[dircolors]} )); then
       eval "$(dircolors --sh $HOME/.dir_colors(.N))"
     else
       export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'

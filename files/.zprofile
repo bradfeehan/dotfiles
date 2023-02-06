@@ -80,7 +80,7 @@ fi
 ##########################################
 
 # Set up Go if present
-if which go > /dev/null 2>&1; then
+if (( ${+commands[go]} )); then
   export GOROOT="$(go env GOROOT)"
 fi
 
