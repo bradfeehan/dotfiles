@@ -151,6 +151,6 @@ while read -d $'\n' -r directory; do
   destination="${base_path}/${directory}"
 
   safe_ln "${directory}" "${target}" "${destination}"
-done < <(find "$directories" -type d -mindepth 1 -maxdepth 1 | sed -e "s%${directories}\/%%")
+done < <(find "$directories" -mindepth 1 -maxdepth 1 -type d | sed -e "s%${directories}\/%%")
 
 debug "Done"
