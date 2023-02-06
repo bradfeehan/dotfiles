@@ -113,7 +113,7 @@ safe_ln() {
       debug "${name}: Overwriting existing symlink (using --force)"
     else
       debug "${name}: Skipping; this already exists as a symlink"
-      continue
+      return
     fi
   elif [[ -e "$destination" ]]; then
     if [[ "$force" ]]; then
@@ -121,7 +121,7 @@ safe_ln() {
     else
       debug "${name}: Skipping; destination is not empty"
       echo "WARNING: the destination is not empty: '${destination}'"
-      continue
+      return
     fi
   fi
 
