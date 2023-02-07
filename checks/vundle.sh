@@ -2,7 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-if ! which 'vundle' > /dev/null 2>&1; then
+if ! which 'vim' > /dev/null 2>&1; then
   debug 'Skipping vundle check because vim was not found in $PATH'
 else
   check_git_remote "${HOME}/.vim/bundle/Vundle.vim" origin \
