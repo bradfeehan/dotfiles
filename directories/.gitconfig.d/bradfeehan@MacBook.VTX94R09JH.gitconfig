@@ -1,0 +1,7 @@
+[user]
+  name  = Brad Feehan
+  email = brad.feehan@shopify.com
+  # signingkey = D52D5E743C85676F3041E3A35A8E84D115843A63
+
+# [commit]
+  # gpgsign = true

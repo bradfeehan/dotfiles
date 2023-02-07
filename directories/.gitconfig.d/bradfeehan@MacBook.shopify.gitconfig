@@ -1,8 +1,0 @@
-[user]
-  name  = Brad Feehan
-  email = brad.feehan@shopify.com
-  # TODO
-  # signingkey =
-
-[commit]
-  gpgsign = true
