@@ -1,2 +1,3 @@
+/directories/.Brewfile.d/local.Brewfile
 /directories/.gitconfig.d/local.gitconfig
 *.zwc
