@@ -7,6 +7,7 @@ cask 'homebrew/cask-fonts/font-hack-nerd-font'
 
 brew 'chruby'
 brew 'fzf'
+brew 'gh'
 brew 'gnupg'
 brew 'pinentry-mac'
 brew 'ruby-install'
