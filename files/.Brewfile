@@ -1,5 +1,5 @@
-brewfile = File.join('directories', '.Brewfile.d', 'local.Brewfile')
-instance_eval File.read File.expand_path(brewfile, __dir__)
+brewfile = File.join('~', '.Brewfile.d', 'local.Brewfile')
+instance_eval File.read File.expand_path(brewfile)
 
 # Hack system font
 tap 'homebrew/cask-fonts'
