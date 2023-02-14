@@ -5,7 +5,6 @@ instance_eval File.read File.expand_path(brewfile)
 tap 'homebrew/cask-fonts'
 cask 'homebrew/cask-fonts/font-hack-nerd-font'
 
-brew 'chruby'
 brew 'fzf'
 brew 'gh'
 brew 'gnupg'
