@@ -5,6 +5,10 @@ instance_eval File.read File.expand_path(brewfile)
 tap 'homebrew/cask-fonts'
 cask 'homebrew/cask-fonts/font-hack-nerd-font'
 
+# pinentry-touchid for Yubikey OpenPGP
+tap 'jorgelbg/tap'
+brew 'pinentry-touchid'
+
 brew 'fzf'
 brew 'gh'
 brew 'gnupg'
