@@ -1,3 +1,9 @@
+[include]
+  path = ~/.config/dev/gitconfig
+
+[gpg]
+  program = /opt/homebrew/bin/gpg
+
 [user]
   name  = Brad Feehan
   email = brad.feehan@shopify.com
