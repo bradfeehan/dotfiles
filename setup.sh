@@ -67,6 +67,11 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
+# Enable force-mode in Spin, to overwrite zshrc
+if [[ "$SPIN" ]]; then
+  force=1
+fi
+
 if [[ "$force" ]]; then
   LN=(ln -sfv)
 else
