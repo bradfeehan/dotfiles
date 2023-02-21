@@ -4,6 +4,8 @@ IFS=$'\n\t'
 
 if ! which 'vim' > /dev/null 2>&1; then
   debug 'Skipping vundle check because vim was not found in $PATH'
+elif [[ "${SPIN}" ]]; then
+  debug 'Skipping vundle check on Spin'
 else
   check_git_remote "${HOME}/.vim/bundle/Vundle.vim" origin \
     "git@github.com:gmarik/Vundle.vim.git"
