@@ -12,7 +12,6 @@ brew 'pinentry-touchid'
 brew 'fzf'
 brew 'gh'
 brew 'gnupg'
-brew 'pinentry-mac'
 brew 'ruby-install'
 
 # Casks
@@ -20,3 +19,4 @@ cask '1kc-razer'
 cask 'bartender'
 cask 'daisydisk'
 cask 'dash'
+cask 'gpg-suite'

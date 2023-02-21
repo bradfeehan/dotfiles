@@ -19,6 +19,7 @@ typeset -gU cdpath fpath mailpath path
 
 # Add paths from desired applications
 app_paths=(
+  "/usr/local/MacGPG2/libexec/pinentry-mac.app/Contents/MacOS"
   "${HOME}/Applications/Sublime Text.app/Contents/SharedSupport/bin"
   "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
   "${HOME}/Applications/Karabiner.app/Contents/Library/bin"
