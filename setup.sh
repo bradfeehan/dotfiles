@@ -117,7 +117,13 @@ safe_ln() {
     fi
   elif [[ -e "$destination" ]]; then
     if [[ "$force" ]]; then
-      debug "${name}: Overwriting existing file (using --force)"
+      if [[ -d "$destination" ]]; then
+        debug "${name}: Overwriting existing directory (using rmdir)"
+        find "$destination" -type f -size 0 -delete
+        rmdir "$destination"
+      else
+        debug "${name}: Overwriting existing file (using --force)"
+      fi
     else
       debug "${name}: Skipping; destination is not empty"
       echo "WARNING: the destination is not empty: '${destination}'"
