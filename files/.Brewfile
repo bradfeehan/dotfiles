@@ -9,6 +9,7 @@ cask 'homebrew/cask-fonts/font-hack-nerd-font'
 tap 'jorgelbg/tap'
 brew 'pinentry-touchid'
 
+brew 'fasd'
 brew 'fzf'
 brew 'gh'
 brew 'gnupg'

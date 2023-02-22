@@ -2,7 +2,6 @@
 brew 'awscli'
 cask 'aws-vault'
 brew 'chruby'
-brew 'fasd'
 brew 'hub'
 brew 'jq'
 brew 'mas'
