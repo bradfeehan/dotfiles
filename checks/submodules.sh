@@ -13,6 +13,8 @@ while read -r file; do
 
   if [[ -f "${file}" ]]; then
     debug "Found file '${name}' in submodule '${submodule}'."
+  elif [[ "${SPIN:-}" ]]; then
+    git submodule update --init --recursive
   else
     echo "File '${name}' missing in submodule '${submodule}'."
     echo 'If git submodules need to be initialised, try:'

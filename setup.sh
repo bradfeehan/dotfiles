@@ -68,7 +68,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Enable force-mode in Spin, to overwrite zshrc
-if [[ "$SPIN" ]]; then
+if [[ "${SPIN:-}" ]]; then
   force=1
 fi
 
