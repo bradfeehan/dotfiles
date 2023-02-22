@@ -1,0 +1,10 @@
+[include]
+  path = ~/.config/dev/gitconfig
+
+[user]
+  name  = Brad Feehan
+  email = brad.feehan@shopify.com
+  signingkey = 2B1DD5B5D8E7CB7CB8D6631DEAF87353863651E0
+
+[commit]
+  gpgsign = true

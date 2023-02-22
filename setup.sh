@@ -164,4 +164,11 @@ while read -d $'\n' -r directory; do
   safe_ln "${directory}" "${target}" "${destination}"
 done < <(find "$directories" -mindepth 1 -maxdepth 1 -type d | sed -e "s%${directories}\/%%")
 
+# In Spin, link local configs
+if [[ "${SPIN:-}" ]]; then
+  ln -sfv \
+    "bradfeehan@spin.gitconfig" \
+    "${HOME}/.gitconfig.d/local.gitconfig"
+fi
+
 debug "Done"
