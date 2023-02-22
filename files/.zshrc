@@ -61,3 +61,10 @@ source_compiled "${repo_root}/submodules/zdharma/fast-syntax-highlighting/fast-s
 source_compiled "${repo_root}/submodules/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh" # after compinit
 
 unset repo_root zshrc_path
+
+# dev will add these lines, but they're already taken care of in faster ways
+if false; then
+  [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
+fi
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
