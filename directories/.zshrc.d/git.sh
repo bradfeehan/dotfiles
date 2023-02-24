@@ -29,11 +29,11 @@ function git_current_branch_name {
 }
 
 function git_main_branch_name {
-    local remote_head='' candidates=(
-        HEAD
+    local branch_name='' candidates=(
         main
         master
         develop
+        HEAD
     )
 
     for branch_name in "${candidates[@]}"; do
