@@ -166,9 +166,7 @@ done < <(find "$directories" -mindepth 1 -maxdepth 1 -type d | sed -e "s%${direc
 
 # In Spin, link local configs
 if [[ "${SPIN:-}" ]]; then
-  ln -sfv \
-    "bradfeehan@spin.gitconfig" \
-    "${HOME}/.gitconfig.d/local.gitconfig"
+  . "${ROOT}/custom/spin.sh"
 fi
 
 debug "Done"
