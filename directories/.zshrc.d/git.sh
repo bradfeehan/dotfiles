@@ -70,7 +70,7 @@ function gbC {
     git branch --merged "${main_branch_name}" --format '%(refname:lstrip=2)' \
         | grep --invert-match --fixed-strings "${main_branch_name}" \
         | grep --invert-match --fixed-strings "${current_branch_name}" \
-        | xargs -n 1 git branch --delete
+        | xargs -r -n 1 git branch --delete
 }
 
 # Git Fetch Rebase + Clean -- fetches with rebase, then cleans branches
