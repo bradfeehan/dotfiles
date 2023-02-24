@@ -4,7 +4,7 @@ ln -sfv \
   "bradfeehan@spin.gitconfig" \
   "${HOME}/.gitconfig.d/local.gitconfig"
 
-apt-get install --assume-yes --no-install-recommends \
+sudo apt-get install --assume-yes --no-install-recommends \
   fasd \
   libterm-readkey-perl \
 ;
