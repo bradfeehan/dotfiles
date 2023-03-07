@@ -41,13 +41,6 @@ source_compiled() {
   source "${file}"
 }
 
-# Load files within zshrc.d
-if [[ -d "${ZDOTDIR:-${HOME}}/.zshrc.d" ]]; then
-  for file in "${ZDOTDIR:-${HOME}}/.zshrc.d"/*; do
-    source_compiled "${file}"
-  done
-fi
-
 # Load plugins from submodules
 zshrc_path="$(readlink "${HOME}/.zshrc")"
 repo_root="$(cd "${zshrc_path%/*}/.." > /dev/null 2>&1 && pwd -P)"
@@ -59,6 +52,13 @@ compinit
 source_compiled "${repo_root}/submodules/Aloxaf/fzf-tab/fzf-tab.plugin.zsh" # after compinit; before f-sy-h + autosuggestions
 source_compiled "${repo_root}/submodules/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" # after compinit
 source_compiled "${repo_root}/submodules/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh" # after compinit
+
+# Load files within zshrc.d
+if [[ -d "${ZDOTDIR:-${HOME}}/.zshrc.d" ]]; then
+  for file in "${ZDOTDIR:-${HOME}}/.zshrc.d"/*; do
+    source_compiled "${file}"
+  done
+fi
 
 unset repo_root zshrc_path
 
