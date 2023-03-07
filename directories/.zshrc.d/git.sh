@@ -13,8 +13,8 @@ alias gst='gwS'
 # git submodule update --init
 alias gsu='gSI'
 
-# Shortcut for "git pull-request"
-alias gpr='git pull-request'
+# Shortcut to create GitHub pull request from current branch
+alias gpr='gh pr create'
 
 function git_current_branch_name {
     local current_branch_name
