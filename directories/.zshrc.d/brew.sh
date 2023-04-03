@@ -1,5 +1,8 @@
 brew () {
-  case "$1" in
+  local subcommand="$1"
+  shift
+
+  case "${subcommand}" in
     find)
       HOMEBREW_NO_COLOR=1 HOMEBREW_COLOR='' command brew search "$@" \
         | sed '/^$/d' \
@@ -12,7 +15,7 @@ brew () {
         | xargs command brew install
       ;;
     *)
-      command brew "$@"
+      command brew "${subcommand}" "$@"
       ;;
   esac
 }
