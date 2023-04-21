@@ -22,8 +22,6 @@ cask 'the-clock'
 cask 'visual-studio-code'
 
 # Utilities
-tap 'bradfeehan/formulae'
-brew 'resize-dock-external-monitor'
 brew 'aws-vault-exec-wrapper'
 
 # Mac App Store
