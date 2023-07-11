@@ -79,9 +79,9 @@ function gfrC {
 }
 
 # Git Log Graph -- shows a nice overview of history for the repository
-alias glg='git log --first-parent --topo-order --glob=heads --graph --pretty=format:"%C(yellow)%h%C(reset) %s%C(auto)%d%C(reset)"'
-alias glga='glg --all'
-alias glgb='git log --first-parent --topo-order --graph --pretty=format:"%C(yellow)%h%C(reset) %s%C(auto)%d%C(reset)" origin/HEAD..HEAD'
+alias glg='git log --first-parent --topo-order --graph --pretty=format:"%C(yellow)%h%C(reset) %s%C(auto)%d%C(reset)"'
+alias glga='glg --branches="*"'
+alias glgaa='glg --all'
 alias glgd='glg --date-order'
 
 
