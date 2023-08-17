@@ -56,6 +56,7 @@
 
 [diff]
   compactionHeuristic = 1
+  colorMoved = zebra
 
 [filter "lfs"]
   clean = git-lfs clean %f
