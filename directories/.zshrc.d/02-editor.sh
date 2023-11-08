@@ -34,3 +34,7 @@ bindkey -M isearch . self-insert 2> /dev/null
 
 # Set the key layout.
 bindkey -e
+
+# Autocomplete settings
+builtin bindkey -M emacs '\e[A' up-line-or-search
+builtin bindkey -M emacs '\e[B' down-line-or-select
