@@ -40,6 +40,9 @@ else
       "  ${__copilot_cli_config_cache}" ''
   else
     . "${__copilot_cli_config_cache}"
+
+    alias github-copilot-cli='npx --logs-max=0 --yes @githubnext/github-copilot-cli --'
+    alias copilot=github-copilot-cli
   fi
 
   unset __copilot_cli_config_cache
