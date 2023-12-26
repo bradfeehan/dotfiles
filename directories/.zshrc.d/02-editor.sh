@@ -38,3 +38,8 @@ bindkey -e
 # Autocomplete settings
 builtin bindkey -M emacs '\e[A' up-line-or-search
 builtin bindkey -M emacs '\e[B' down-line-or-select
+
+# By default, left and right are equivalent to up and down.
+# Instead, this makes either one accept the suggestion.
+builtin bindkey -M menuselect '\e[C' accept-line
+builtin bindkey -M menuselect '\e[D' accept-line
