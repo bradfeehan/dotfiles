@@ -43,3 +43,8 @@ builtin bindkey -M emacs '\e[B' down-line-or-select
 # Instead, this makes either one accept the suggestion.
 builtin bindkey -M menuselect '\e[C' accept-line
 builtin bindkey -M menuselect '\e[D' accept-line
+
+# Make Enter submit the command line straight from the menu:
+# By default, pressing Enter in the menu search exits the search and pressing it otherwise in the menu exits the menu.
+# If you instead want to make Enter always submit the command line, use the following:
+bindkey -M menuselect '\r' .accept-line
