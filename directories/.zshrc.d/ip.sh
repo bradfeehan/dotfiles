@@ -1,10 +1,10 @@
 # Shows the device's IP address
 #
-#   ip public -- public IP on the internet
-#   ip local  -- local IP on the local network
+#   myip public -- public IP on the internet
+#   myip local  -- local IP on the local network
 #
-# Running with no argument defaults to `ip public`.
-ip() {
+# Running with no argument defaults to `myip public`.
+myip() {
   local mode="${1:-}"
 
   if [[ -z "${mode}" ]]; then
@@ -14,8 +14,8 @@ ip() {
   case "${mode}" in
     local)
       {
-        ifconfig \
-        | grep -E '^(e|[[:space:]]*(media|inet ))' \
+        ifconfig -X 'en[[:digit:]]' \
+        | grep -E '^(en[[:digit:]]|[[:space:]]*(media|inet ))' \
         | grep -vE '(127\.0\.0\.1|media: (none|autoselect$|<unknown type>))' \
         ; \
         echo; \
