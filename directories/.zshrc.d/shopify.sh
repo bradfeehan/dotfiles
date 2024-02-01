@@ -5,6 +5,12 @@ if [[ -f '/opt/dev/sh/chruby/chruby.sh' ]]; then
       chruby "$@"
     }
   fi
+
+  if (( $+functions[chruby] )); then
+    if chruby | grep -q '^[ *]*3'; then
+      chruby 3
+    fi
+  fi
 fi
 
 if [[ -f '/opt/dev/dev.sh' ]]; then
