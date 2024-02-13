@@ -4,7 +4,9 @@
   signingkey = E66553CDA84B4D5D993F33BC28920B00DDE65894
 
 [commit]
-  gpgsign = true
+  # Temporarily disable signing commits until GPG key has been renewed
+  # gpgsign = true
+  gpgsign = false
 
 [gpg]
   program = /opt/homebrew/bin/gpg
