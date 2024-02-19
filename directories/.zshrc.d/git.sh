@@ -82,6 +82,7 @@ function gfrC {
 alias glg='git log --first-parent --topo-order --graph --pretty=format:"%C(yellow)%h%C(reset) %s%C(auto)%d%C(reset)"'
 alias glga='glg --branches="*"'
 alias glgaa='glg --all'
+alias glgb='glg main..HEAD'
 alias glgd='glg --date-order'
 
 
