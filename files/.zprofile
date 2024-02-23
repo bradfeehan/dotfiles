@@ -59,8 +59,8 @@ fi
 # Less
 if (( $+commands[less] )); then
   # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
-  # Remove -X and -F (exit if the content fits on one screen) to enable it.
-  export LESS='-F -M -R -S -X -z-4'
+  # Remove --no-init and --quit-if-one-screen to enable it.
+  export LESS='--chop-long-lines --LONG-PROMPT --quit-at-eof --quit-if-one-screen --RAW-CONTROL-CHARS --no-init --use-color --window=-6'
   export PAGER='less'
 
   # Set the Less input preprocessor.
