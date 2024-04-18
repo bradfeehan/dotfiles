@@ -1,5 +1,14 @@
 # Only sourced by interactive shells
 
+
+# Temporary hack: https://github.com/romkatv/gitstatus/issues/426
+if [[ "${SPIN:-}" && -z "${__SPIN_GITSTATUSD_REEXEC_HACK__:-}" ]]; then
+  export __SPIN_GITSTATUSD_REEXEC_HACK__=1
+  exec zsh "$@"
+else
+  export __SPIN_GITSTATUSD_REEXEC_HACK__=1
+fi
+
 # TODO
 #  - setting terminal window/tab title
 #  - dircolors(1) / LSCOLOR
