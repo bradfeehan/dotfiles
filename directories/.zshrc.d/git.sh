@@ -28,6 +28,34 @@ function git_current_branch_name {
     printf '%s\n' "${current_branch_name}"
 }
 
+if ! (( $+commands[git-revise] )); then
+    function git-revise {
+        printf '%s\n' >&2 \
+            "git-revise: not found" "Install with:" "  $ pipxu install git-revise" \
+            "For more info, see https://git-revise.readthedocs.io/en/latest/install.html"
+        return 1
+    }
+fi
+
+if ! (( $+commands[git-branch-stash] )); then
+    function git-branch-stash {
+        printf '%s\n' >&2 \
+            "git-branch-stash: not found" "Install with:" "  $ cargo install git-branch-stash-cli" \
+            "For more info, see https://github.com/gitext-rs/git-branch-stash"
+        return 1
+    }
+fi
+
+if ! (( $+commands[git-stack] )); then
+    function git-stack {
+        printf '%s\n' >&2 \
+            "git-stack: not found" "Install with:" "  $ cargo install git-stack" \
+            "For more info, see https://github.com/gitext-rs/git-stack"
+        return 1
+    }
+fi
+
+
 function git_main_branch_name {
     local branch_name='' candidates=(
         main
