@@ -12,6 +12,7 @@ cask 'homebrew/cask-fonts/font-hack-nerd-font'
 tap 'jorgelbg/tap'
 brew 'pinentry-touchid'
 
+brew 'atuin'
 brew 'fasd'
 brew 'fzf'
 brew 'gh'
