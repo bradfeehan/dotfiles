@@ -15,7 +15,5 @@ brew 'gnupg'
 brew 'ruby-install'
 
 # Casks
-cask '1kc-razer'
-cask 'bartender'
 cask 'daisydisk'
 cask 'dash'
