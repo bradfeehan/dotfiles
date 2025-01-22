@@ -5,8 +5,7 @@ tap 'bradfeehan/formulae'
 brew 'resize-dock-external-monitor'
 
 # Hack system font
-tap 'homebrew/cask-fonts'
-cask 'homebrew/cask-fonts/font-hack-nerd-font'
+cask 'font-hack-nerd-font'
 
 brew 'atuin'
 brew 'fasd'
