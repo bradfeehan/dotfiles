@@ -8,10 +8,6 @@ brew 'resize-dock-external-monitor'
 tap 'homebrew/cask-fonts'
 cask 'homebrew/cask-fonts/font-hack-nerd-font'
 
-# pinentry-touchid for Yubikey OpenPGP
-tap 'jorgelbg/tap'
-brew 'pinentry-touchid'
-
 brew 'atuin'
 brew 'fasd'
 brew 'fzf'
