@@ -8,11 +8,11 @@ brew 'resize-dock-external-monitor'
 cask 'font-hack-nerd-font'
 
 brew 'atuin'
-brew 'fasd'
 brew 'fzf'
 brew 'gh'
 brew 'gnupg'
 brew 'ruby-install'
+brew 'zoxide'
 
 # Casks
 cask 'daisydisk'
