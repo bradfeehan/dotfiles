@@ -2,9 +2,10 @@ brewfile = File.join('~', '.Brewfile.d', 'local.Brewfile')
 instance_eval File.read File.expand_path(brewfile)
 
 tap 'bradfeehan/formulae'
-brew 'resize-dock-external-monitor'
+brew 'bradfeehan/formulae/resize-dock-external-monitor'
 
 # Hack system font
+cask 'font-fira-code-nerd-font'
 cask 'font-hack-nerd-font'
 
 brew 'atuin'
