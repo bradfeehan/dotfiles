@@ -17,10 +17,8 @@ brew 'zoxide'
 
 # Casks
 cask 'clocker'
-cask 'cursor'
 cask 'daisydisk'
 cask 'dash'
-cask 'descript'
 cask 'logitune'
 cask 'monitorcontrol'
 cask 'numi'

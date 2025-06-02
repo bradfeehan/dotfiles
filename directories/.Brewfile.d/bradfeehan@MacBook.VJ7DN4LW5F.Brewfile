@@ -18,6 +18,7 @@ brew 'chnode'
 
 # Apps
 cask '1password'
+cask 'cursor'
 cask 'daisydisk'
 cask 'orbstack'
 cask 'paw'
