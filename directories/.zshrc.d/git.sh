@@ -2,10 +2,13 @@
 # My commonly used shell aliases and helper functions for Git
 #
 
-# Set up Hub alias ("git" runs "hub")
-if [[ -x "${HOMEBREW_PREFIX}/bin/hub" ]]; then
-  alias git='hub'
-fi
+function git {
+    case "$1" in
+        clone|fetch|pull|push)
+            printf '%s\n' "Touch Yubikey" >&2;;
+    esac
+    command git "$@"
+}
 
 # git status
 alias gst='gwS'
