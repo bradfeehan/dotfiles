@@ -54,7 +54,6 @@ source_compiled() {
 zshrc_path="$(readlink "${HOME}/.zshrc")"
 repo_root="$(cd "${zshrc_path%/*}/.." > /dev/null 2>&1 && pwd -P)"
 
-source "${repo_root}/submodules/romkatv/powerlevel10k/powerlevel10k.zsh-theme"
 source "${repo_root}/submodules/zsh-users/zsh-completions/zsh-completions.plugin.zsh"
 source "${repo_root}/submodules/Aloxaf/fzf-tab/fzf-tab.plugin.zsh" # after compinit; before f-sy-h + autosuggestions
 source "${repo_root}/submodules/zdharma-continuum/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" # after compinit
