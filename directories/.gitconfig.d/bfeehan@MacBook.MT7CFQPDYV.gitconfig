@@ -1,0 +1,6 @@
+[user]
+  name  = Brad Feehan
+  email = bfeehan@cisco.com
+
+[submodule]
+  recurse = true
