@@ -32,12 +32,18 @@ function git_current_branch_name {
 }
 
 if ! (( $+commands[git-revise] )); then
-    function git-revise {
-        printf '%s\n' >&2 \
-            "git-revise: not found" "Install with:" "  $ pipxu install git-revise" \
-            "For more info, see https://git-revise.readthedocs.io/en/latest/install.html"
-        return 1
-    }
+    if (( $+commands[uv] )); then
+        function git-revise {
+            uv tool run git-revise "$@"
+        }
+    else
+        function git-revise {
+            printf '%s\n' >&2 \
+                "git-revise: not found" "Install with:" "  $ uv tool run git-revise" \
+                "For more info, see https://git-revise.readthedocs.io/en/latest/install.html"
+            return 1
+        }
+    fi
 fi
 
 if ! (( $+commands[git-branch-stash] )); then
