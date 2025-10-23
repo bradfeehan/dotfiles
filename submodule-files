@@ -1,5 +1,5 @@
 romkatv/powerlevel10k/powerlevel10k.zsh-theme
 Aloxaf/fzf-tab/fzf-tab.plugin.zsh
-zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+zdharma-continuum/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh
 zsh-users/zsh-completions/zsh-completions.plugin.zsh

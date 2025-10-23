@@ -6,8 +6,8 @@
 	path = submodules/Aloxaf/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
 	shallow = true
-[submodule "submodules/zdharma/fast-syntax-highlighting"]
-	path = submodules/zdharma/fast-syntax-highlighting
+[submodule "submodules/zdharma-continuum/fast-syntax-highlighting"]
+	path = submodules/zdharma-continuum/fast-syntax-highlighting
 	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
 	shallow = true
 [submodule "submodules/zsh-users/zsh-autosuggestions"]
