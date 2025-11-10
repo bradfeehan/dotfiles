@@ -35,5 +35,5 @@ export LESS_TERMCAP_ue=$'\E[0m'          # Ends underline.
 export LESS_TERMCAP_us=$'\E[01;32m'      # Begins underline.
 
 if [[ -d "${HOME}/.local/bin" ]]; then
-  path+=("${HOME}/.local/bin")
+  path=("${HOME}/.local/bin" $path)
 fi
