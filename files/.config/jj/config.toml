@@ -4,7 +4,6 @@
 last = [
     "log",
     "--no-graph",
-    "--no-pager",
     "--template", "log_last(self)",
     "--stat",
     "--revisions", "@-",
