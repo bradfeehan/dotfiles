@@ -1,9 +1,25 @@
 #:schema https://jj-vcs.github.io/jj/latest/config-schema.json
 
+[aliases]
+last = [
+    "log",
+    "--no-graph",
+    "--no-pager",
+    "--template", "log_last(self)",
+    "--stat",
+    "--revisions", "@-",
+    "--limit", "1",
+    "--ignore-working-copy",
+    "--color", "always",
+]
+
 [colors]
 # Highlight hunks with background
 "diff removed token" = { bg = "#221111", underline = false }
 "diff added token" = { bg = "#002200", underline = false }
+"git_head" = { fg = 'blue', bold = true }
+"git_tag" = { fg = 'yellow', bold = true }
+"remote_bookmark" = { fg = 'red', bold = true }
 
 [git]
 # Prevent pushing work in progress or anything explicitly labeled "private"
@@ -22,6 +38,37 @@ key = "E66553CDA84B4D5D993F33BC28920B00DDE65894"
 [templates]
 git_push_bookmark = '"bfeehan/jj/push-" ++ change_id.short()'
 log = "builtin_log_oneline"
+'log_last(commit)' = '''
+concat(
+  "change " ++ commit.change_id() ++ "\n",
+  "commit " ++ commit.commit_id() ++
+  surround(
+    " (", ")",
+    separate(", ",
+      if(commit.git_head(), label("git_head", "git_head()")),
+      commit.tags().map(|tag| label("git_tag", "tag: " ++ tag)),
+      commit.local_bookmarks().map(|bookmark| label("local_bookmark", bookmark)),
+      commit.remote_bookmarks()
+        .filter(|bookmark| bookmark.remote() != "git")
+        .map(|bookmark| label("remote_bookmark", bookmark)),
+      commit.remote_bookmarks()
+        .filter(|bookmark| bookmark.remote() == "git")
+        .map(|bookmark| label("git_ref", bookmark)),
+    )
+  ),
+  "\n",
+
+  "Author: " ++ format_detailed_signature(commit.author()) ++ "\n",
+  if(config("ui.show-cryptographic-signatures").as_boolean(),
+    "Signature: " ++ format_detailed_cryptographic_signature(commit.signature()) ++ "\n"),
+  "\n",
+  indent("    ",
+    if(commit.description(),
+      commit.description().trim_end(),
+      label(if(commit.empty(), "empty"), description_placeholder)) ++ "\n"),
+  "\n",
+)
+'''
 
 [ui]
 default-command = [
