@@ -6,7 +6,6 @@ last = [
     "--no-graph",
     "--template", "log_last(self)",
     "--stat",
-    "--revisions", "@-",
     "--limit", "1",
     "--ignore-working-copy",
     "--color", "always",
