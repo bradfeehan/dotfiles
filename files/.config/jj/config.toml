@@ -36,11 +36,23 @@ backend = "gpg"
 key = "E66553CDA84B4D5D993F33BC28920B00DDE65894"
 
 [templates]
+# Add the git diff to the end of the commit description draft
+draft_commit_description = '''
+  concat(
+    coalesce(description, default_commit_description, "\n"),
+    surround(
+      "\nJJ: This commit contains the following changes:\n", "",
+      indent("JJ:     ", diff.stat(72)),
+    ),
+    "\nJJ: ignore-rest\n",
+    diff.git(),
+  )
+'''
 git_push_bookmark = '"bfeehan/jj/push-" ++ change_id.short()'
 log = "builtin_log_oneline"
 
 [template-aliases]
-'format_timestamp(timestamp)' = 'timestamp.ago() ++ " @ " ++ timestamp.local().format("%Y-%m-%d %H:%M:%S")'
+'format_timestamp(timestamp)' = 'timestamp.ago() ++ " (" ++ timestamp.local().format("%Y-%m-%d %H:%M:%S") ++ ")"'
 
 'log_last(commit)' = '''
 concat(
