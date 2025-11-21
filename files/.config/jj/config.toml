@@ -20,12 +20,23 @@ last = [
 "git_head" = { fg = 'blue', bold = true }
 "git_tag" = { fg = 'yellow', bold = true }
 "remote_bookmark" = { fg = 'red', bold = true }
+"custom_timestamp_local timestamp" = { fg = '#111111', bold = false }
+"custom_timestamp_local" = { fg = '#111111', bold = false }
+"custom_timestamp_relative" = { fg = 'blue', bold = true }
 
 [git]
 # Prevent pushing work in progress or anything explicitly labeled "private"
 private-commits = "description(glob:'[wip] *') | description(glob:'wip:*') | description(glob:'private:*')"
 
 sign-on-push = true
+
+[revset-aliases]
+'closest_pushable(to)' = '''heads(
+  ::to
+  & mutable()
+  & ~(description(exact:"") | description(glob:'[wip] *') | description(glob:'wip:*') | description(glob:'private:*'))
+  & (~empty() | merges())
+)'''
 
 [revsets]
 log = '@ | ancestors(trunk()..(visible_heads() & mine()), 2) | ancestors(trunk(), 3)'
@@ -52,8 +63,19 @@ git_push_bookmark = '"bfeehan/jj/push-" ++ change_id.short()'
 log = "builtin_log_oneline"
 
 [template-aliases]
-'format_timestamp(timestamp)' = 'timestamp.ago() ++ " (" ++ timestamp.local().format("%Y-%m-%d %H:%M:%S") ++ ")"'
+# Include relative time in all timestamps
+'format_timestamp(timestamp)' = '''
+label("custom_timestamp_relative", timestamp.ago())
+++ label("custom_timestamp_local", " (" ++ timestamp.local().format("%Y-%m-%d %H:%M:%S") ++ ")")
+'''
 
+# Avoid nested brackets with the timestamp in author details
+'format_detailed_signature(signature)' = '''
+  coalesce(signature.name(), name_placeholder)
+  ++ " <" ++ coalesce(signature.email(), email_placeholder) ++ ">"
+  ++ " " ++ format_timestamp(signature.timestamp())'''
+
+# A custom log template for the "last" alias
 'log_last(commit)' = '''
 concat(
   "change " ++ commit.change_id() ++ "\n",
