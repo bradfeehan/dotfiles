@@ -12,6 +12,14 @@ last = [
     "--color", "always",
 ]
 
+status-log = [
+    "util", "exec", "--", "bash", "-c",
+    '''jj st --no-pager --color=always \
+        | tac | tail -n +3 | tac \
+        && echo \
+        && jj log --template builtin_log_oneline --no-pager''',
+]
+
 # find the closest bookmark, and then move it to the closest pushable commit
 tug = ["bookmark", "move", "--from", "heads(::@ & bookmarks())", "--to", "closest_pushable(@)"]
 
@@ -111,13 +119,7 @@ concat(
 '''
 
 [ui]
-default-command = [
-    "util", "exec", "--", "bash", "-c",
-    '''jj st --no-pager --color=always \
-        | tac | tail -n +3 | tac \
-        && echo \
-        && jj log --template builtin_log_oneline --no-pager''',
-]
+default-command = ["status-log"]
 
 [user]
 name = "Brad Feehan"
