@@ -17,4 +17,20 @@ if (( ${+commands[jj]} )); then
     }
 
     compdef _clap_dynamic_completer_jj jj
+
+    # Aliases
+    alias jjst='jj status-log'
+    alias jjl='jj log'
+    alias jjla="jj log -r 'all()'"
+    alias jjid='jj diff'
+    alias jjd='jj diff'
+    alias jjcm='jj commit -m'
+
+    # single-j convenience aliases
+    alias jst='jjst'
+    alias jl='jjl'
+    alias jla='jjla'
+    alias jid='jjid'
+    alias jd='jjd'
+    alias jcm='jjcm'
 fi
