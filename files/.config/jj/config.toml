@@ -73,7 +73,7 @@ concat(
 [ui]
 default-command = [
     "util", "exec", "--", "bash", "-c",
-    "jj st --no-pager --color=always | tac | tail -n +3 | tac && echo && jj log --no-pager",
+    "jj st --no-pager --color=always | tac | tail -n +3 | tac && echo && jj log --template builtin_log_oneline --no-pager",
 ]
 
 [user]
