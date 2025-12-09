@@ -17,7 +17,7 @@ this = ["log-single", "--revisions", "@"]
 status-log = [
     "util", "exec", "--", "bash", "-c",
     '''jj st --no-pager --color=always \
-        | tac | tail -n +3 | tac \
+        | awk '{ line[NR%3] = $0; if (NR > 2) print line[(NR-2)%3] }' \
         && echo \
         && jj log --template builtin_log_oneline --no-pager''',
 ]
