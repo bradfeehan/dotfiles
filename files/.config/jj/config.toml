@@ -126,3 +126,9 @@ default-command = ["status-log"]
 [user]
 name = "Brad Feehan"
 email = "git@bradfeehan.com"
+
+[[--scope]]
+--when.hostnames = ["BFEEHAN-M-FQPD"]
+
+[--scope.user]
+email = "bfeehan@cisco.com"
