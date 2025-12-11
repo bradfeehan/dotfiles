@@ -24,7 +24,6 @@ ${custom.git_branch}\
 ${custom.git_commit}\
 ${custom.git_metrics}\
 ${custom.git_status}\
-${custom.git_branch}\
 ${custom.jj}\
 $all"""
 
