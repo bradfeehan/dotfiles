@@ -122,6 +122,7 @@ concat(
 
 [ui]
 default-command = ["status-log"]
+diff-editor = ":builtin"
 
 [user]
 name = "Brad Feehan"
