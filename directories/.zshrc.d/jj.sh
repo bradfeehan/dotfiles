@@ -33,4 +33,29 @@ if (( ${+commands[jj]} )); then
     alias jid='jjid'
     alias jd='jjd'
     alias jcm='jjcm'
+
+    # Acts more like git rebase
+    function jj-git-rebase() {
+        local selection destination
+        if (( $# == 0 )); then
+            destination='trunk()'
+            selection=('--branch' '@')
+        elif (( $# == 1 )); then
+            destination="$1"
+            selection=('--branch' '@')
+        elif (( $# == 2 )); then
+            destination="$1"
+            selection=('--branch' "$2")
+        elif (( $# == 3 )); then
+            destination="$1"
+            selection=('--revisions' "$2::$3")
+        else
+            echo "Usage: jjr [destination] [source]"
+            return 1
+        fi
+        jj rebase "${selection[@]}" --destination "${destination}"
+    }
+
+    alias jjr='jj-git-rebase'
+    alias jr='jjr'
 fi
