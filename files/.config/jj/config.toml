@@ -75,6 +75,10 @@ git_push_bookmark = '"bfeehan/jj/push-" ++ change_id.short()'
 log = "builtin_log_oneline"
 
 [template-aliases]
+description_placeholder = '''
+label("description placeholder", "(no desc.)")
+'''
+
 # Include relative time in all timestamps
 'format_timestamp(timestamp)' = '''
 label("custom_timestamp_relative", timestamp.ago())
