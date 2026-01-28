@@ -75,6 +75,3 @@ if false; then
 fi
 
 [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } } || :
-
-# cloudplatform: add Shopify clusters to your local kubernetes config
-export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/brad.feehan/.kube/config:/Users/brad.feehan/.kube/config.shopify.cloudplatform
