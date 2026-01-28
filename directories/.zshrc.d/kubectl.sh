@@ -7,7 +7,8 @@ if (( ${+commands[kubectl]} )); then
   }
 
   # Extra aliases
-  alias kcgp=kgpo
+  alias kcgp=kcgpo
+  alias k=kc
 
   # Copyright 2019 Google Inc.
   #
