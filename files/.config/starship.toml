@@ -38,7 +38,7 @@ before_repo_root_style = "fg:103"
 # custom module for jj status
 [custom.jj]
 description = "The current jj status"
-when = "jj --ignore-working-copy root"
+when = '''bash --norc --noprofile -c 'd="${PWD}"; while [[ -n "$d" ]]; do [[ -d "$d/.jj" ]] && exit 0; [[ "$d" == "/" ]] && break; d="${d%/*}"; [[ -z "$d" ]] && d="/"; done; exit 1' '''
 symbol = "🥋 "
 command = '''
 jj log --revisions @ --no-graph --ignore-working-copy --color always --limit 1 --template '
@@ -71,7 +71,7 @@ jj log --revisions @ --no-graph --ignore-working-copy --color always --limit 1 -
 disabled = true
 
 [custom.git_status]
-when = "! jj --ignore-working-copy root"
+when = '''! bash --norc --noprofile -c 'd="${PWD}"; while [[ -n "$d" ]]; do [[ -d "$d/.jj" ]] && exit 0; [[ "$d" == "/" ]] && break; d="${d%/*}"; [[ -z "$d" ]] && d="/"; done; exit 1' '''
 command = "starship module git_status"
 style = "" # This disables the default "(bold green)" style
 description = "Only show git_status if we're not in a jj repo"
@@ -81,7 +81,7 @@ disabled = true
 tag_symbol = '  '
 
 [custom.git_commit]
-when = "! jj --ignore-working-copy root"
+when = '''! bash --norc --noprofile -c 'd="${PWD}"; while [[ -n "$d" ]]; do [[ -d "$d/.jj" ]] && exit 0; [[ "$d" == "/" ]] && break; d="${d%/*}"; [[ -z "$d" ]] && d="/"; done; exit 1' '''
 command = "starship module git_commit"
 style = ""
 description = "Only show git_commit if we're not in a jj repo"
@@ -90,7 +90,7 @@ description = "Only show git_commit if we're not in a jj repo"
 disabled = true
 
 [custom.git_metrics]
-when = "! jj --ignore-working-copy root"
+when = '''! bash --norc --noprofile -c 'd="${PWD}"; while [[ -n "$d" ]]; do [[ -d "$d/.jj" ]] && exit 0; [[ "$d" == "/" ]] && break; d="${d%/*}"; [[ -z "$d" ]] && d="/"; done; exit 1' '''
 command = "starship module git_metrics"
 description = "Only show git_metrics if we're not in a jj repo"
 style = ""
@@ -99,7 +99,7 @@ style = ""
 disabled = true
 
 [custom.git_branch]
-when = "! jj --ignore-working-copy root"
+when = '''! bash --norc --noprofile -c 'd="${PWD}"; while [[ -n "$d" ]]; do [[ -d "$d/.jj" ]] && exit 0; [[ "$d" == "/" ]] && break; d="${d%/*}"; [[ -z "$d" ]] && d="/"; done; exit 1' '''
 command = "starship module git_branch"
 description = "Only show git_branch if we're not in a jj repo"
 style = ""
