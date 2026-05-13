@@ -39,6 +39,12 @@ bindkey -e
 builtin bindkey -M emacs '\e[A' up-line-or-search
 builtin bindkey -M emacs '\e[B' down-line-or-select
 
+# Alt+Left/Right word navigation for terminals that send xterm-style modifier
+# sequences (e.g. Cursor, VS Code). Terminal.app's "Use Option as Meta key"
+# profile sends ^[b / ^[f which zsh binds by default; these cover the CSI form.
+bindkey -M emacs '\e[1;3D' backward-word
+bindkey -M emacs '\e[1;3C' forward-word
+
 # By default, left and right are equivalent to up and down.
 # Instead, this makes either one accept the suggestion.
 builtin bindkey -M menuselect '\e[C' accept-line
