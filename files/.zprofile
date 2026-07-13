@@ -82,7 +82,13 @@ fi
 
 # Set up Go if present
 if (( ${+commands[go]} )); then
-  export GOROOT="$(go env GOROOT)"
+  go_root="$(env -u GOROOT go env GOROOT)"
+  if [[ -n "${go_root}" && -d "${go_root}" ]]; then
+    export GOROOT="${go_root}"
+  else
+    unset GOROOT
+  fi
+  unset go_root
 fi
 
 
