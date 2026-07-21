@@ -110,9 +110,189 @@ function gbC {
         | xargs -r -n 1 git branch --delete
 }
 
+function git_branch_patch_id_to {
+    local main_branch_name branch_name merge_base
+    main_branch_name="$1"
+    branch_name="$2"
+
+    merge_base="$(git merge-base "${main_branch_name}" "${branch_name}")" || return 1
+    git diff --find-renames "${merge_base}..${branch_name}" \
+        | git patch-id --stable \
+        | cut -d ' ' -f 1
+}
+
+function git_pr_patch_id {
+    local pr_number
+    pr_number="$1"
+
+    gh pr diff "${pr_number}" --color never \
+        | git patch-id --stable \
+        | cut -d ' ' -f 1
+}
+
+function git_branch_matches_pr_patch {
+    local main_branch_name branch_name pr_number local_patch_id pr_patch_id
+    main_branch_name="$1"
+    branch_name="$2"
+    pr_number="$3"
+
+    local_patch_id="$(git_branch_patch_id_to "${main_branch_name}" "${branch_name}")" || return 1
+    pr_patch_id="$(git_pr_patch_id "${pr_number}")" || return 1
+
+    [[ -n "${local_patch_id}" && "${local_patch_id}" == "${pr_patch_id}" ]]
+}
+
+function git_branch_matches_pr_head {
+    local main_branch_name branch_name branch_oid pr_number pr_head_oid
+    main_branch_name="$1"
+    branch_name="$2"
+    pr_number="$3"
+    pr_head_oid="$4"
+
+    branch_oid="$(git rev-parse "${branch_name}^{commit}")" || return 1
+    if [[ "${branch_oid}" == "${pr_head_oid}" ]]; then
+        return 0
+    fi
+
+    git_branch_matches_pr_patch "${main_branch_name}" "${branch_name}" "${pr_number}"
+}
+
+# Git PR Merged Branches -- reports local branches whose GitHub PR was merged to main
+function git_pr_merged_branches {
+    local main_branch_name current_branch_name branch_name pr_details pr_number pr_head_oid
+    local merged_pr_limit="${GIT_PR_MERGED_BRANCH_LIMIT:-10}"
+
+    if ! (( $+commands[gh] )); then
+        echo "gh: not found" >&2
+        return 1
+    fi
+
+    current_branch_name="$(git_current_branch_name)"
+    main_branch_name="$(git_main_branch_name)"
+    if [[ -z "${main_branch_name}" ]]; then
+        echo "Couldn't determine main branch name" >&2
+        return 1
+    fi
+
+    while IFS= read -r branch_name; do
+        if [[ "${branch_name}" == "${main_branch_name}" || "${branch_name}" == "${current_branch_name}" ]]; then
+            continue
+        fi
+
+        pr_details="$(gh pr list \
+            --state merged \
+            --base "${main_branch_name}" \
+            --head "${branch_name}" \
+            --limit "${merged_pr_limit}" \
+            --json number,headRefOid \
+            --jq '.[] | [.number, .headRefOid] | @tsv')" || return 1
+
+        while IFS=$'\t' read -r pr_number pr_head_oid; do
+            [[ -n "${pr_number}" ]] || continue
+            if git_branch_matches_pr_head "${main_branch_name}" "${branch_name}" "${pr_number}" "${pr_head_oid}"; then
+                printf '%s\n' "${branch_name}"
+                break
+            fi
+        done <<< "${pr_details}"
+    done < <(git for-each-ref refs/heads --format '%(refname:short)')
+}
+
+# Git Branch Squash Merged -- reports branches whose PR was squash/rebase merged to main
+function git_squash_merged_branches {
+    git_pr_merged_branches "$@"
+}
+
+# Git Branch Clean Squash -- deletes branches that have been squash-merged to main
+function gbCs {
+    local branch_name branch_names
+
+    branch_names="$(git_squash_merged_branches "$@")" || return 1
+    while IFS= read -r branch_name; do
+        if [[ -z "${branch_name}" ]]; then
+            continue
+        fi
+        git branch --delete --force "${branch_name}"
+    done <<< "${branch_names}"
+}
+
+# Git PR Closed Branches -- reports local branches whose GitHub PR is closed (not merged) against main
+function git_pr_closed_branches {
+    local main_branch_name current_branch_name branch_name closed_pr_limit pr_details pr_number pr_head_oid
+    closed_pr_limit="${GIT_PR_CLOSED_BRANCH_LIMIT:-10}"
+
+    if ! (( $+commands[gh] )); then
+        echo "gh: not found" >&2
+        return 1
+    fi
+
+    current_branch_name="$(git_current_branch_name)"
+    main_branch_name="$(git_main_branch_name)"
+    if [[ -z "${main_branch_name}" ]]; then
+        echo "Couldn't determine main branch name" >&2
+        return 1
+    fi
+
+    while IFS= read -r branch_name; do
+        if [[ "${branch_name}" == "${main_branch_name}" || "${branch_name}" == "${current_branch_name}" ]]; then
+            continue
+        fi
+
+        # Find a closed (not merged) PR for this local branch by exact head SHA or matching net diff.
+        # Important: if there is no matching closed PR, we must NOT treat that as "closed-but-not-merged".
+        pr_details="$(gh pr list \
+            --state closed \
+            --base "${main_branch_name}" \
+            --head "${branch_name}" \
+            --limit "${closed_pr_limit}" \
+            --json number,mergedAt,headRefOid \
+            --jq '.[] | select(.mergedAt == null) | [.number, .headRefOid] | @tsv')" || return 1
+
+        while IFS=$'\t' read -r pr_number pr_head_oid; do
+            [[ -n "${pr_number}" ]] || continue
+            if git_branch_matches_pr_head "${main_branch_name}" "${branch_name}" "${pr_number}" "${pr_head_oid}"; then
+                printf '%s\n' "${branch_name}"
+                break
+            fi
+        done <<< "${pr_details}"
+    done < <(git for-each-ref refs/heads --format '%(refname:short)')
+}
+
+# Git Branch Clean Closed PR -- archives closed (not merged) PR branches under refs prefix and deletes local branches
+function gbCc {
+    local ref_prefix="${GIT_CLOSED_REF_PREFIX:-refs/archived/closed-pr}"
+    local branch_name branch_names branch_oid
+
+    if [[ "${ref_prefix}" != refs/* ]]; then
+        echo "GIT_CLOSED_REF_PREFIX must start with refs/ (got: ${ref_prefix})" >&2
+        return 2
+    fi
+
+    branch_names="$(git_pr_closed_branches "$@")" || return 1
+    while IFS= read -r branch_name; do
+        [[ -n "${branch_name}" ]] || continue
+
+        branch_oid="$(git rev-parse "${branch_name}^{commit}")" || continue
+
+        # Move by creating a namespaced ref pointing at the same commit.
+        git update-ref "${ref_prefix}/${branch_name}" "${branch_oid}" || return 1
+
+        # Then delete the local branch.
+        git branch --delete --force "${branch_name}"
+    done <<< "${branch_names}"
+}
+
+function gfrCc {
+    git pull --rebase --prune "$@" && gbC && gbCs && gbCc
+}
+
 # Git Fetch Rebase + Clean -- fetches with rebase, then cleans branches
 function gfrC {
     git pull --rebase --prune "$@" && gbC
+}
+
+# Git Fetch Rebase + Clean Squash -- fetches with rebase, then cleans regular and squash-merged branches
+function gfrCs {
+    git pull --rebase --prune "$@" && gbC && gbCs
 }
 
 # Git Log Graph -- shows a nice overview of history for the repository
