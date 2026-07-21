@@ -1,6 +1,10 @@
 [core]
   excludesfile = ~/.gitignore.global
-  pager = less --RAW-CONTROL-CHARS --tabs=1,5 --quit-at-eof --quit-if-one-screen --quit-on-intr
+
+  # Improved syntax highlighting
+  pager = delta
+  # pager = less --RAW-CONTROL-CHARS --tabs=1,5 --quit-at-eof --quit-if-one-screen --quit-on-intr
+
 [color]
   ui = true
 
@@ -8,7 +12,18 @@
   lineNumber = true
 
 [interactive]
+  diffFilter = delta --color-only
   singlekey = true
+
+[delta]
+  line-numbers = true
+  navigate = true
+  zero-style = dim syntax
+  whitespace-error-style = bold red reverse
+
+[delta "hyperlinks-cursor"]
+  hyperlinks = true
+  hyperlinks-file-link-format = "cursor://file/{path}:{line}"
 
 [push]
   # Push the current branch to its tracking branch if none given
@@ -20,7 +35,7 @@
 
 [merge]
   defaultToUpstream = true
-  conflictstyle = diff3
+  conflictstyle = zdiff3
 
 [alias]
   #
@@ -57,7 +72,7 @@
 
 [diff]
   compactionHeuristic = 1
-  colorMoved = zebra
+  colorMoved = default
 
 [filter "lfs"]
   clean = git-lfs clean %f

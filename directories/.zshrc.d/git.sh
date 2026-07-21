@@ -557,3 +557,12 @@ alias gwc='git clean --dry-run'
 alias gwC='git clean --force'
 alias gwx='git rm -r'
 alias gwX='git rm -r --force'
+
+function is_inside_cursor() {
+  # For now, this seems to detect when running inside Cursor.app
+  [[ -n "${COMMAND_MODE:-}" && "${GIT_ASKPASS:-}" =~ "Cursor.app" ]]
+}
+
+if is_inside_cursor; then
+  export DELTA_FEATURES=+hyperlinks-cursor
+fi
