@@ -35,26 +35,12 @@ bindkey -M isearch . self-insert 2> /dev/null
 # Set the key layout.
 bindkey -e
 
-# Autocomplete settings
+# Keep the usual history navigation while fzf-tab owns completion selection.
 builtin bindkey -M emacs '\e[A' up-line-or-search
-builtin bindkey -M emacs '\e[B' down-line-or-select
+builtin bindkey -M emacs '\e[B' down-line-or-history
 
 # Alt+Left/Right word navigation for terminals that send xterm-style modifier
 # sequences (e.g. Cursor, VS Code). Terminal.app's "Use Option as Meta key"
 # profile sends ^[b / ^[f which zsh binds by default; these cover the CSI form.
 bindkey -M emacs '\e[1;3D' backward-word
 bindkey -M emacs '\e[1;3C' forward-word
-
-# By default, left and right are equivalent to up and down.
-# Instead, this makes either one accept the suggestion.
-builtin bindkey -M menuselect '\e[C' accept-line
-builtin bindkey -M menuselect '\e[D' accept-line
-
-# Make Enter submit the command line straight from the menu.
-# By default, pressing Enter in the menu search exits the search and pressing it otherwise in the menu exits the menu.
-bindkey -M menuselect '\r' .accept-line
-
-# Make Ctrl+A and Ctrl+E accept the suggestion before moving to the beginning/end of the line.
-# By default, pressing Ctrl+A or Ctrl+E in the menu search does nothing.
-bindkey -M menuselect '^A' .accept-line
-bindkey -M menuselect '^E' .accept-line
