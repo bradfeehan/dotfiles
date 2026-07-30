@@ -1,3 +1,3 @@
 if (( ${+commands[uv]} )); then
-  eval "$(uv generate-shell-completion bash)"
+  eval "$(uv generate-shell-completion zsh)"
 fi
