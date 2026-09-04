@@ -1,0 +1,24 @@
+#!/bin/zsh
+
+notifier="${HOME}/.local/bin/yubikey-touch-notifier"
+if [[ ! -x "${notifier}" ]]; then
+  # Also work when run directly from the dotfiles repository.
+  notifier="${0:A:h}/yubikey-touch-notifier"
+fi
+
+if [[ ! -x "${notifier}" ]]; then
+  printf '%s\n' 'yubikey-touch-watcher: notifier not found' >&2
+  exit 1
+fi
+
+# ykpiv-ssh-agent already logs this event immediately before it asks the PIV
+# key to sign. Watching that event avoids false alerts for HTTPS Git remotes.
+/usr/bin/log stream \
+  --level debug \
+  --style compact \
+  --predicate 'process == "ykpiv-ssh-agent" AND eventMessage BEGINSWITH "Signing message:"' \
+  2>/dev/null |
+while IFS= read -r line; do
+  [[ "${line}" == *'Signing message:'* ]] || continue
+  "${notifier}"
+done

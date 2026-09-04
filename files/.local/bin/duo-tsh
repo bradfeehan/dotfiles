@@ -1,0 +1,43 @@
+#!/bin/zsh
+
+wrapper_path="${0:A}"
+real_duo_tsh="${DUO_TSH_REAL_COMMAND:-}"
+
+if [[ -z "${real_duo_tsh}" || ! -x "${real_duo_tsh}" || "${real_duo_tsh:A}" == "${wrapper_path}" ]]; then
+  real_duo_tsh=
+  for directory in "${path[@]}"; do
+    candidate="${directory}/duo-tsh"
+    if [[ -x "${candidate}" && "${candidate:A}" != "${wrapper_path}" ]]; then
+      real_duo_tsh="${candidate}"
+      break
+    fi
+  done
+fi
+
+if [[ -z "${real_duo_tsh}" ]]; then
+  printf '%s\n' 'duo-tsh wrapper: real duo-tsh executable not found' >&2
+  exit 127
+fi
+
+tsh_wrapper_dir="${DUO_TSH_SHIM_DIR:-${HOME}/.local/libexec/duo-tsh}"
+tsh_wrapper_path="${tsh_wrapper_dir}/tsh"
+real_tsh="${DUO_TSH_REAL_TSH:-}"
+
+if [[ -z "${real_tsh}" || ! -x "${real_tsh}" || "${real_tsh:A}" == "${tsh_wrapper_path:A}" ]]; then
+  real_tsh=
+  for directory in "${path[@]}"; do
+    candidate="${directory}/tsh"
+    if [[ -x "${candidate}" && "${candidate:A}" != "${tsh_wrapper_path:A}" ]]; then
+      real_tsh="${candidate}"
+      break
+    fi
+  done
+fi
+
+if [[ ! -x "${tsh_wrapper_path}" || -z "${real_tsh}" ]]; then
+  exec "${real_duo_tsh}" "$@"
+fi
+
+DUO_TSH_REAL_TSH="${real_tsh}" \
+  PATH="${tsh_wrapper_dir}:${PATH}" \
+  exec "${real_duo_tsh}" "$@"

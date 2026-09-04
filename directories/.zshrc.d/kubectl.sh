@@ -1,4 +1,78 @@
 if (( ${+commands[kubectl]} )); then
+  function _kubectl_uses_tsh_credentials() {
+    local context=
+    local arg
+    local index
+    for (( index = 1; index <= $#; index++ )); do
+      arg="${argv[index]}"
+      case "${arg}" in
+        --context=*)
+          context="${arg#--context=}"
+          ;;
+        --context)
+          (( index++ ))
+          context="${argv[index]:-}"
+          ;;
+        --help|-h)
+          return 1
+          ;;
+      esac
+    done
+
+    local command_name=
+    for (( index = 1; index <= $#; index++ )); do
+      arg="${argv[index]}"
+      case "${arg}" in
+        --context|--namespace|-n|--kubeconfig|--cluster|--user|--server|-s|\
+        --token|--as|--as-group|--as-uid|--certificate-authority|\
+        --client-certificate|--client-key|--request-timeout|--tls-server-name|\
+        --username|--password|--cache-dir|--profile|--profile-output)
+          (( index++ ))
+          ;;
+        --*|-*)
+          ;;
+        *)
+          command_name="${arg}"
+          break
+          ;;
+      esac
+    done
+
+    case "${command_name}" in
+      ''|config|completion|options|plugin|help)
+        return 1
+        ;;
+    esac
+
+    local -a context_args
+    [[ -n "${context}" ]] && context_args=(--context="${context}")
+
+    local exec_spec
+    exec_spec="$(
+      command kubectl config view \
+        --raw \
+        --minify \
+        "${context_args[@]}" \
+        -o 'go-template={{(index .users 0).user.exec.command}}{{"\n"}}{{range (index .users 0).user.exec.args}}{{.}}{{"\n"}}{{end}}' \
+        2>/dev/null
+    )" || return 1
+
+    local -a exec_lines
+    exec_lines=("${(@f)exec_spec}")
+    [[ "${exec_lines[1]:t}" == tsh &&
+      "${exec_lines[2]:-}" == kube &&
+      "${exec_lines[3]:-}" == credentials ]]
+  }
+
+  function kubectl() {
+    if _kubectl_uses_tsh_credentials "$@"; then
+      local notifier="${YUBIKEY_TOUCH_NOTIFIER:-${HOME}/.local/bin/yubikey-touch-notifier}"
+      [[ -x "${notifier}" ]] && "${notifier}"
+    fi
+
+    command kubectl "$@"
+  }
+
   function kubectl_alias() {
     printf '=> kubectl' >&2
     [[ $# -gt 0 ]] && printf ' %q' "$@" >&2
