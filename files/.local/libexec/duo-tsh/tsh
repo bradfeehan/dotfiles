@@ -1,0 +1,48 @@
+#!/bin/zsh
+
+real_tsh="${DUO_TSH_REAL_TSH:-}"
+if [[ -z "${real_tsh}" || ! -x "${real_tsh}" || "${real_tsh:A}" == "${0:A}" ]]; then
+  printf '%s\n' 'duo-tsh tsh shim: DUO_TSH_REAL_TSH is missing or invalid' >&2
+  exit 127
+fi
+
+notify=
+command_index=1
+while (( command_index <= $# )) && [[ "${argv[command_index]}" == -* ]]; do
+  (( command_index++ ))
+done
+
+case "${argv[command_index]:-}" in
+  login|ssh|scp)
+    notify=1
+    ;;
+  app)
+    # duo-tsh first runs `tsh app login` to discover roles, then repeats it
+    # without --env to detect per-session MFA. Only the final --env command
+    # performs the interactive MFA assertion in this flow.
+    if [[ "${argv[command_index + 1]:-}" == login ]]; then
+      for arg in "$@"; do
+        if [[ "${arg}" == --env ]]; then
+          notify=1
+          break
+        fi
+      done
+    fi
+    ;;
+  proxy)
+    if [[ "${argv[command_index + 1]:-}" == kube ]]; then
+      notify=1
+    fi
+    ;;
+esac
+
+if [[ -n "${notify}" ]]; then
+  notifier="${YUBIKEY_TOUCH_NOTIFIER:-${HOME}/.local/bin/yubikey-touch-notifier}"
+  if [[ ! -x "${notifier}" ]]; then
+    # Also work when run directly from the dotfiles repository.
+    notifier="${0:A:h:h:h}/bin/yubikey-touch-notifier"
+  fi
+  [[ -x "${notifier}" ]] && "${notifier}"
+fi
+
+exec "${real_tsh}" "$@"

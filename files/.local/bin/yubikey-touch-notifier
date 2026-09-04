@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+# Emit the terminal hint only when this was launched from an interactive
+# command. The background log watcher has no terminal attached.
+if [[ -t 2 ]]; then
+  printf '%s\n' 'Touch YubiKey' >&2
+fi
+
+sound="${YUBIKEY_TOUCH_SOUND-/System/Library/Sounds/Ping.aiff}"
+if [[ -n "${sound}" && -x /usr/bin/afplay && -r "${sound}" ]]; then
+  /usr/bin/afplay "${sound}" >/dev/null 2>&1 &!
+fi
+
+if [[ "${YUBIKEY_TOUCH_NOTIFICATION:-1}" != 0 && -x /usr/bin/osascript ]]; then
+  /usr/bin/osascript \
+    -e 'display notification "Touch your YubiKey to continue." with title "YubiKey touch required"' \
+    >/dev/null 2>&1 &!
+fi
