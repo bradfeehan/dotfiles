@@ -1,0 +1,4 @@
+.Brewfile.d
+.gitconfig.d
+.zshrc.d
+.codex/skills/babysit

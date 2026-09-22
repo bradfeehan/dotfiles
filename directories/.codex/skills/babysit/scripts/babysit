@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+skill_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export BABYSIT_REPO_DIR="${BABYSIT_REPO_DIR:-$PWD}"
+cd "$skill_dir"
+exec uv run --isolated --frozen --no-dev python -m babysit.cli "$@"

@@ -1,0 +1,32 @@
+[project]
+name = "babysit"
+version = "0.1.0"
+description = "Deterministic controller for keeping GitHub pull requests review-ready"
+requires-python = ">=3.14,<3.15"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.16.7",
+    "ty>=0.0.81",
+]
+
+[tool.uv]
+required-version = ">=0.12.17"
+exclude-newer = "7 days"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.ty.environment]
+python-version = "3.14"
+

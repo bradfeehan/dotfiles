@@ -2,3 +2,5 @@
 /directories/.gitconfig.d/local.gitconfig
 /directories/.zshrc.d/local.sh
 *.zwc
+__pycache__/
+*.pyc

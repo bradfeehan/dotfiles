@@ -1,0 +1,4 @@
+interface:
+  display_name: "Babysit"
+  short_description: "Keep GitHub PRs ready for review"
+  default_prompt: "Use $babysit to keep PRs 123 and 456 ready for review for two hours."
