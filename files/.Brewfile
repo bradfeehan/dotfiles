@@ -13,6 +13,7 @@ brew 'fzf'
 brew 'gh'
 brew 'gnupg'
 brew 'ruby-install'
+brew 'uv'
 brew 'zsh'
 brew 'zoxide'
 
