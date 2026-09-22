@@ -94,6 +94,10 @@ files="$ROOT/files"
 # Directory containing template directories
 directories="$ROOT/directories"
 
+# File listing template directories to link, relative to both the template
+# directory and the target base path
+directories_file="$ROOT/directories.txt"
+
 # The target directory to place the dotfiles
 base_path="$HOME"
 
@@ -156,13 +160,36 @@ while read -d $'\n' -r dotfile; do
   safe_ln "${dotfile}" "${target}" "${destination}"
 done < <(find "$files" -type f | sed -e "s%${files}\/%%")
 
-# Link directories
-while read -d $'\n' -r directory; do
+# Link explicitly managed directories
+while IFS= read -r directory || [[ -n "$directory" ]]; do
+  # Permit blank lines and comments
+  [[ -z "$directory" || "$directory" == \#* ]] && continue
+
+  # Directory entries must stay relative to the template and base paths
+  case "$directory" in
+    /*|..|../*|*/..|*/../*)
+      echo "ERROR: Invalid directory entry: '${directory}'"
+      exit 1
+      ;;
+  esac
+
   target="${directories}/${directory}"
   destination="${base_path}/${directory}"
+  parent="${destination%/*}"
+
+  if [[ ! -d "$target" ]]; then
+    echo "ERROR: Managed directory doesn't exist: '${target}'"
+    exit 1
+  fi
+
+  # Nested directory links may need their containing directories created
+  if [[ ! -d "$parent" ]]; then
+    echo "NOTICE: creating directory '$parent'"
+    mkdir -p "$parent"
+  fi
 
   safe_ln "${directory}" "${target}" "${destination}"
-done < <(find "$directories" -mindepth 1 -maxdepth 1 -type d | sed -e "s%${directories}\/%%")
+done < "$directories_file"
 
 # In Spin, link local configs
 if [[ "${SPIN:-}" ]]; then
